@@ -57,7 +57,7 @@
   - [x] `src/common/interceptors/transform.interceptor.ts` — response transformation
 - [x] Update `app.module.ts` to include `MongooseModule.forRoot()`
 - [x] Create `.env.development` with `MONGODB_URI` variable
-- [ ] **Verify**: Run `npm run start:dev` and confirm MongoDB connection log
+- [x] **Verify**: Run `npm run start:dev` and confirm MongoDB connection log
 
 ---
 
@@ -65,24 +65,24 @@
 
 **Goal**: Create authentication endpoints with JWT.
 
-- [ ] Create `src/auth/` module structure
-  - [ ] `auth.module.ts` — module definition
-  - [ ] `auth.controller.ts` — endpoints: `POST /auth/register`, `POST /auth/login`, `GET /auth/me`
-  - [ ] `auth.service.ts` — business logic
-  - [ ] `dto/login.dto.ts` — Zod-validated login payload
-  - [ ] `dto/register.dto.ts` — Zod-validated register payload
-  - [ ] `strategies/jwt.strategy.ts` — Passport JWT strategy
-  - [ ] `guards/jwt-auth.guard.ts` — protect routes
-- [ ] Create `src/users/` module for user management
-  - [ ] `user.schema.ts` — Mongoose schema (email, password hash, name, role)
-  - [ ] `users.service.ts` — findByEmail, createUser
-- [ ] Add bcrypt for password hashing
-- [ ] Add `@nestjs/jwt` and `@nestjs/passport` dependencies
-- [ ] Create demo user seed: `demo@example.com` / `demo123`
-- [ ] **Verify**:
-  - [ ] `POST /auth/register` creates user → returns JWT
-  - [ ] `POST /auth/login` with valid creds → returns JWT
-  - [ ] `GET /auth/me` with Bearer token → returns user object
+- [x] Create `src/auth/` module structure
+  - [x] `auth.module.ts` — module definition
+  - [x] `auth.controller.ts` — endpoints: `POST /auth/register`, `POST /auth/login`, `GET /auth/me`
+  - [x] `auth.service.ts` — business logic
+  - [x] `dto/login.dto.ts` — Zod-validated login payload
+  - [x] `dto/register.dto.ts` — Zod-validated register payload
+  - [x] `strategies/jwt.strategy.ts` — Passport JWT strategy
+  - [x] `guards/jwt-auth.guard.ts` — protect routes
+- [x] Create `src/users/` module for user management
+  - [x] `user.schema.ts` — Mongoose schema (email, password hash, name, role)
+  - [x] `users.service.ts` — findByEmail, createUser
+- [x] Add bcrypt for password hashing
+- [x] Add `@nestjs/jwt` and `@nestjs/passport` dependencies
+- [x] Create demo user seed: `demo@example.com` / `demo123`
+- [x] **Verify**:
+  - [x] `POST /auth/register` creates user → returns JWT
+  - [x] `POST /auth/login` with valid creds → returns JWT
+  - [x] `GET /auth/me` with Bearer token → returns user object
 
 ---
 

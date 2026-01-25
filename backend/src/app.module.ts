@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AuthModule } from './auth/auth.module.js';
 import { validateEnvironment } from './config/validation.schema.js';
 
 @Module({
@@ -28,7 +29,9 @@ import { validateEnvironment } from './config/validation.schema.js';
     MongooseModule.forRoot(process.env.MONGODB_URI!, {
       dbName: process.env.MONGODB_DB_NAME!,
     }),
+    AuthModule,
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
