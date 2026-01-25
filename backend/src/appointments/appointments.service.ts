@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+import { ActivityAction } from '../activity-log/activity-log.schema.js';
+import { ActivityLogService } from '../activity-log/activity-log.service.js';
 import { ServicesDefinitionService } from '../services-definition/services-definition.service.js';
 import { StaffService } from '../staff/staff.service.js';
 import { Appointment, AppointmentDocument, AppointmentStatus } from './appointment.schema.js';
@@ -13,6 +15,7 @@ export class AppointmentsService {
     @InjectModel(Appointment.name) private appointmentModel: Model<AppointmentDocument>,
     private staffService: StaffService,
     private servicesDefinitionService: ServicesDefinitionService,
+    private activityLogService: ActivityLogService,
   ) {}
 
   async create(createAppointmentDto: CreateAppointmentDto, userId: string): Promise<Appointment> {
@@ -223,6 +226,15 @@ export class AppointmentsService {
     appointment.status = AppointmentStatus.SCHEDULED;
     appointment.queuePosition = undefined;
     await appointment.save();
+
+    // Log the assignment
+    await this.activityLogService.createLog(
+      ActivityAction.QueueToStaff,
+      `Appointment for "${appointment.customerName}" auto-assigned to staff.`,
+      appointment._id.toString(),
+      staffId,
+      userId,
+    );
 
     // Recalculate queue positions
     await this.recalculateQueuePositions(userId);

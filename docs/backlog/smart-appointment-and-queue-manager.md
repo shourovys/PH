@@ -97,11 +97,11 @@
   - [x] `staff.controller.ts` — `GET /staff`, `POST /staff`, `PUT /staff/:id`, `DELETE /staff/:id`
   - [x] `staff.service.ts` — CRUD operations scoped to authenticated user
 - [x] Add index on `userId` for efficient queries
-- [ ] **Verify**:
+- [x] **Verify**:
   - [x] Create staff member → 201 response
-    - [x] List staff → returns array scoped to user
-    - [x] Update staff → changes reflected
-    - [x] Delete staff → 204 response
+  - [x] List staff → returns array scoped to user
+  - [x] Update staff → changes reflected
+  - [x] Delete staff → 204 response
 
 ---
 
@@ -115,7 +115,7 @@
   - [x] `dto/update-service.dto.ts`
   - [x] `services-definition.controller.ts` — CRUD endpoints
   - [x] `services-definition.service.ts`
-- [x] **Verify**: Same as Story 1.3 verification pattern
+- [x] **Verify**: CRUD operations work (create, list, update, delete)
 
 ---
 
@@ -538,9 +538,9 @@
 
 **Goal**: Document all endpoints.
 
-- [ ] Add Swagger/OpenAPI via `@nestjs/swagger`
-- [ ] Document all endpoints with examples
-- [ ] **Verify**: `/api/docs` shows swagger UI
+- [x] Add Swagger/OpenAPI via `@nestjs/swagger`
+- [x] Document all endpoints with examples
+- [x] **Verify**: `/api/docs` shows swagger UI
 
 ---
 
@@ -549,11 +549,11 @@
 **Goal**: Project setup instructions.
 
 - [ ] Update `frontend/README.md` with setup steps
-- [ ] Update `backend/README.md` with:
+- [x] Update `backend/README.md` with:
   - Environment variables
   - MongoDB setup
   - Demo user credentials
-- [ ] **Verify**: New developer can setup project from README
+- [x] **Verify**: New developer can setup project from README
 
 ---
 

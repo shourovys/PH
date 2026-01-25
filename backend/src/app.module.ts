@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ActivityLogModule } from './activity-log/activity-log.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AppointmentsModule } from './appointments/appointments.module.js';
@@ -36,6 +37,7 @@ import { StaffModule } from './staff/staff.module.js';
     ServicesDefinitionModule,
     StaffModule,
     AppointmentsModule,
+    ActivityLogModule,
   ],
 
   controllers: [AppController],

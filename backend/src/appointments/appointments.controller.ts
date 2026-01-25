@@ -8,13 +8,20 @@ import {
   Patch,
   Post,
   Query,
+  Request,
   UseGuards,
 } from '@nestjs/common';
+import { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
+import { UserDocument } from '../users/user.schema.js';
 import { Appointment, AppointmentStatus } from './appointment.schema.js';
 import { AppointmentsService } from './appointments.service.js';
 import type { CreateAppointmentDto } from './dto/create-appointment.dto.js';
 import type { UpdateAppointmentDto } from './dto/update-appointment.dto.js';
+
+interface AuthenticatedRequest extends ExpressRequest {
+  user: UserDocument;
+}
 
 @Controller('appointments')
 @UseGuards(JwtAuthGuard)
@@ -22,10 +29,11 @@ export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
 
   @Post()
-  create(
+  async create(
     @Body() createAppointmentDto: CreateAppointmentDto,
-    @Query('userId') userId: string,
+    @Request() req: AuthenticatedRequest,
   ): Promise<Appointment> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.create(createAppointmentDto, userId);
   }
 
@@ -35,6 +43,16 @@ export class AppointmentsController {
     @Query() filters: { date?: string; staffId?: string; status?: string },
   ) {
     return this.appointmentsService.findAll(userId, filters);
+  }
+
+  @Get('queue')
+  getQueue(@Query('userId') userId: string) {
+    return this.appointmentsService.getQueue(userId);
+  }
+
+  @Post('queue/assign/:staffId')
+  assignFromQueue(@Param('staffId') staffId: string, @Query('userId') userId: string) {
+    return this.appointmentsService.assignFromQueue(staffId, userId);
   }
 
   @Get(':id')
@@ -63,15 +81,5 @@ export class AppointmentsController {
     @Query('userId') userId: string,
   ) {
     return this.appointmentsService.updateStatus(id, status, userId);
-  }
-
-  @Get('queue')
-  getQueue(@Query('userId') userId: string) {
-    return this.appointmentsService.getQueue(userId);
-  }
-
-  @Post('queue/assign/:staffId')
-  assignFromQueue(@Param('staffId') staffId: string, @Query('userId') userId: string) {
-    return this.appointmentsService.assignFromQueue(staffId, userId);
   }
 }

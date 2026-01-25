@@ -1,8 +1,8 @@
-# Wallet API - Production-Grade NestJS Backend
+# Smart Appointment & Queue Manager - Backend API
 
 ## 📋 Project Overview
 
-A production-grade NestJS backend application for a comprehensive financial wallet management system. This project implements enterprise-grade architecture with MongoDB, comprehensive observability, strict code quality gates, and robust security measures.
+A production-grade NestJS backend application for a comprehensive appointment and queue management system. This project implements enterprise-grade architecture with MongoDB, comprehensive observability, strict code quality gates, and robust security measures.
 
 ## 🚀 Key Features
 
@@ -198,7 +198,7 @@ npm run start:dev
 
 ### Environment Configuration
 
-Create a `.env` file in the root directory:
+Create a `.env.development` file in the root directory:
 
 ```env
 # Application
@@ -206,13 +206,10 @@ NODE_ENV=development
 PORT=3000
 
 # Database
-MONGODB_URI=mongodb://localhost:27017/wallet_db
-MONGODB_DB_NAME=wallet_db
-MONGODB_USER=
-MONGODB_PASSWORD=
+MONGODB_URI=mongodb://localhost:27017/smart_appointment_db
 
 # Security
-JWT_SECRET=your-super-secret-jwt-key
+JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-secure
 
 # Logging
 LOG_LEVEL=info
@@ -222,6 +219,23 @@ ENABLE_METRICS=true
 ENABLE_TRACING=true
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces
 ```
+
+### MongoDB Setup
+
+1. **Install MongoDB** locally or use MongoDB Atlas cloud service
+2. **Create database**: `smart_appointment_db`
+3. **Update MONGODB_URI** in your `.env.development` file
+4. **Start MongoDB service** if running locally
+
+### Demo User Credentials
+
+The application includes a demo user that is automatically seeded on startup:
+
+- **Email**: `demo@example.com`
+- **Password**: `demo123`
+- **Role**: `admin`
+
+Use these credentials to log in and test all features.
 
 ## 🏃‍♂️ Available Scripts
 
@@ -373,6 +387,7 @@ src/
 - **Endpoint**: `http://localhost:3000/api/docs`
 - **Auto-generation**: From DTOs and controllers
 - **Authentication**: JWT token support in Swagger UI
+- **Features**: Interactive API testing, request/response examples
 
 ## 🚀 Deployment
 
