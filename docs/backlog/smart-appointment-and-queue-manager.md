@@ -4,29 +4,29 @@
 
 ### Existing Infrastructure
 
-| Area | Status | Details |
-|------|--------|---------|
-| Frontend Stack | ✅ Ready | React 19, Vite 7, TypeScript 5.9, Tailwind 4, Zustand 5, SWR 2 |
-| Backend Stack | ✅ Ready | NestJS 11, MongoDB (Mongoose 9), Zod validation |
-| Auth Module | ⚠️ Partial | Mock login implemented; guards, store, routes exist but no real API |
-| UI Components | ⚠️ Minimal | `Button`, `Card`, `Input`, `Label` only |
-| API Client | ✅ Ready | Axios wrapper with typed responses |
-| Error Handling | ✅ Ready | `ErrorBoundary`, global error handlers |
-| Routing | ✅ Ready | React Router 7 with auth guards (`authenticated`, `guest`, `public`) |
+| Area           | Status     | Details                                                              |
+| -------------- | ---------- | -------------------------------------------------------------------- |
+| Frontend Stack | ✅ Ready   | React 19, Vite 7, TypeScript 5.9, Tailwind 4, Zustand 5, SWR 2       |
+| Backend Stack  | ✅ Ready   | NestJS 11, MongoDB (Mongoose 9), Zod validation                      |
+| Auth Module    | ⚠️ Partial | Mock login implemented; guards, store, routes exist but no real API  |
+| UI Components  | ⚠️ Minimal | `Button`, `Card`, `Input`, `Label` only                              |
+| API Client     | ✅ Ready   | Axios wrapper with typed responses                                   |
+| Error Handling | ✅ Ready   | `ErrorBoundary`, global error handlers                               |
+| Routing        | ✅ Ready   | React Router 7 with auth guards (`authenticated`, `guest`, `public`) |
 
 ### Major Gaps Identified
 
-| PRD Feature | Current State | Gap Analysis |
-|-------------|---------------|--------------|
-| **Authentication** | Mock user login | Needs real API integration, demo user button |
-| **Staff Management** | ❌ Missing | Full CRUD module required (frontend + backend) |
-| **Service Definition** | ❌ Missing | Full CRUD module required (frontend + backend) |
-| **Appointment Management** | ❌ Missing | Full CRUD + status workflow required |
-| **Assignment Rules** | ❌ Missing | Staff capacity logic, conflict detection required |
-| **Waiting Queue** | ❌ Missing | Queue management UI + backend logic |
-| **Dashboard** | ❌ Placeholder | Stats, staff load summary, widgets required |
-| **Activity Log** | ❌ Missing | Event tracking system required |
-| **Backend APIs** | ❌ Empty | Only base NestJS setup exists, no modules |
+| PRD Feature                | Current State   | Gap Analysis                                      |
+| -------------------------- | --------------- | ------------------------------------------------- |
+| **Authentication**         | Mock user login | Needs real API integration, demo user button      |
+| **Staff Management**       | ❌ Missing      | Full CRUD module required (frontend + backend)    |
+| **Service Definition**     | ❌ Missing      | Full CRUD module required (frontend + backend)    |
+| **Appointment Management** | ❌ Missing      | Full CRUD + status workflow required              |
+| **Assignment Rules**       | ❌ Missing      | Staff capacity logic, conflict detection required |
+| **Waiting Queue**          | ❌ Missing      | Queue management UI + backend logic               |
+| **Dashboard**              | ❌ Placeholder  | Stats, staff load summary, widgets required       |
+| **Activity Log**           | ❌ Missing      | Event tracking system required                    |
+| **Backend APIs**           | ❌ Empty        | Only base NestJS setup exists, no modules         |
 
 ### Technical Debt Notes
 
@@ -50,13 +50,13 @@
 
 **Goal**: Establish MongoDB connection and create reusable module patterns.
 
-- [ ] Create `src/common/` directory structure on backend
-  - [ ] `src/common/dto/pagination.dto.ts` — generic pagination DTO
-  - [ ] `src/common/interfaces/base-model.interface.ts` — common fields (id, createdAt, updatedAt)
-  - [ ] `src/common/filters/http-exception.filter.ts` — global exception filter
-  - [ ] `src/common/interceptors/transform.interceptor.ts` — response transformation
-- [ ] Update `app.module.ts` to include `MongooseModule.forRoot()`
-- [ ] Create `.env.development` with `MONGODB_URI` variable
+- [x] Create `src/common/` directory structure on backend
+  - [x] `src/common/dto/pagination.dto.ts` — generic pagination DTO
+  - [x] `src/common/interfaces/base-model.interface.ts` — common fields (id, createdAt, updatedAt)
+  - [x] `src/common/filters/http-exception.filter.ts` — global exception filter
+  - [x] `src/common/interceptors/transform.interceptor.ts` — response transformation
+- [x] Update `app.module.ts` to include `MongooseModule.forRoot()`
+- [x] Create `.env.development` with `MONGODB_URI` variable
 - [ ] **Verify**: Run `npm run start:dev` and confirm MongoDB connection log
 
 ---
@@ -559,12 +559,12 @@
 
 ## Risk Register
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| MongoDB schema changes mid-sprint | High | Finalize schemas before coding |
-| Time conflict logic edge cases | Medium | Define business rules clearly (overlapping times) |
-| Staff capacity timezone issues | Medium | Store all times in UTC, display in local |
-| Auth token expiry handling | Low | Implement refresh token flow |
+| Risk                              | Impact | Mitigation                                        |
+| --------------------------------- | ------ | ------------------------------------------------- |
+| MongoDB schema changes mid-sprint | High   | Finalize schemas before coding                    |
+| Time conflict logic edge cases    | Medium | Define business rules clearly (overlapping times) |
+| Staff capacity timezone issues    | Medium | Store all times in UTC, display in local          |
+| Auth token expiry handling        | Low    | Implement refresh token flow                      |
 
 ---
 
