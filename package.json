@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "@commitlint/cli": "^20.3.0",
+    "@commitlint/config-conventional": "^20.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "wallet-backend/wallet-api/src/**/*.ts": [
+      "cd wallet-backend/wallet-api && eslint --fix",
+      "cd wallet-backend/wallet-api && prettier --write"
+    ],
+    "wallet-backend/wallet-api/src/**/*.{js,ts}": [
+      "cd wallet-backend/wallet-api && eslint --fix",
+      "cd wallet-backend/wallet-api && prettier --write"
+    ]
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}

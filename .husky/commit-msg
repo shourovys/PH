@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "📝 Validating commit message with commitlint..."
+
+npx commitlint --edit "$1"
+
+if [ $? -ne 0 ]; then
+  echo "❌ Commit message validation failed!"
+  echo "Please follow conventional commit format: type(scope): subject"
+  echo "Example: feat(api): add user authentication endpoint"
+  exit 1
+fi
+
+echo "✅ Commit message is valid!"

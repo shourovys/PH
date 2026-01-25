@@ -1,0 +1,12 @@
+echo "🧹 Running pre-commit quality checks..."
+
+# Run lint-staged on staged files
+npx lint-staged
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linting/formatting failed!"
+  echo "Please fix the issues and try again."
+  exit 1
+fi
+
+echo "✅ Pre-commit checks passed!"
