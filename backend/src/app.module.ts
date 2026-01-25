@@ -5,6 +5,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AuthModule } from './auth/auth.module.js';
 import { validateEnvironment } from './config/validation.schema.js';
+import { ServicesDefinitionModule } from './services-definition/services-definition.module.js';
 import { StaffModule } from './staff/staff.module.js';
 
 @Module({
@@ -31,6 +32,7 @@ import { StaffModule } from './staff/staff.module.js';
       dbName: process.env.MONGODB_DB_NAME!,
     }),
     AuthModule,
+    ServicesDefinitionModule,
     StaffModule,
   ],
 

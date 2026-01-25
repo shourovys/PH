@@ -109,12 +109,12 @@
 
 **Goal**: Create service definition endpoints.
 
-- [ ] Create `src/services-definition/` module
-  - [ ] `service-definition.schema.ts` — name, duration (15/30/60), requiredStaffType, userId
-  - [ ] `dto/create-service.dto.ts`
-  - [ ] `dto/update-service.dto.ts`
-  - [ ] `services-definition.controller.ts` — CRUD endpoints
-  - [ ] `services-definition.service.ts`
+- [x] Create `src/services-definition/` module
+  - [x] `service-definition.schema.ts` — name, duration (15/30/60), requiredStaffType, userId
+  - [x] `dto/create-service.dto.ts`
+  - [x] `dto/update-service.dto.ts`
+  - [x] `services-definition.controller.ts` — CRUD endpoints
+  - [x] `services-definition.service.ts`
 - [ ] **Verify**: Same as Story 1.3 verification pattern
 
 ---
