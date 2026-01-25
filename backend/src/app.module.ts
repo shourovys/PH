@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AppointmentsModule } from './appointments/appointments.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { validateEnvironment } from './config/validation.schema.js';
 import { ServicesDefinitionModule } from './services-definition/services-definition.module.js';
@@ -34,6 +35,7 @@ import { StaffModule } from './staff/staff.module.js';
     AuthModule,
     ServicesDefinitionModule,
     StaffModule,
+    AppointmentsModule,
   ],
 
   controllers: [AppController],

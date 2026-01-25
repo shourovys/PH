@@ -10,5 +10,6 @@ import { ServicesDefinitionService } from './services-definition.service.js';
   ],
   controllers: [ServicesDefinitionController],
   providers: [ServicesDefinitionService],
+  exports: [ServicesDefinitionService],
 })
 export class ServicesDefinitionModule {}

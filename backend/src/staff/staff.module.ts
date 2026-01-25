@@ -8,5 +8,6 @@ import { StaffService } from './staff.service.js';
   imports: [MongooseModule.forFeature([{ name: Staff.name, schema: StaffSchema }])],
   controllers: [StaffController],
   providers: [StaffService],
+  exports: [StaffService],
 })
 export class StaffModule {}

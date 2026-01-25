@@ -123,28 +123,28 @@
 
 **Goal**: Create appointment management endpoints with status workflow.
 
-- [ ] Create `src/appointments/` module
-  - [ ] `appointment.schema.ts`:
+- [x] Create `src/appointments/` module
+  - [x] `appointment.schema.ts`:
     - `customerName`, `serviceId` (ref), `staffId` (nullable ref), `appointmentDate`, `appointmentTime`
     - `status` (enum: Scheduled, Completed, Cancelled, No-Show, Waiting)
     - `queuePosition` (nullable)
     - `userId` (owner)
-  - [ ] `dto/create-appointment.dto.ts`
-  - [ ] `dto/update-appointment.dto.ts`
-  - [ ] `appointment.controller.ts`:
+  - [x] `dto/create-appointment.dto.ts`
+  - [x] `dto/update-appointment.dto.ts`
+  - [x] `appointment.controller.ts`:
     - `GET /appointments` — list with filters (date, staff, status)
     - `POST /appointments` — create with conflict check
     - `PUT /appointments/:id` — update with conflict check
     - `DELETE /appointments/:id` — cancel
     - `PATCH /appointments/:id/status` — change status
-  - [ ] `appointment.service.ts`:
+  - [x] `appointment.service.ts`:
     - Implement conflict detection (same staff + overlapping time)
     - Implement staff capacity check (count appointments for staff on date)
     - If no staff available, set status=Waiting and assign queuePosition
-- [ ] **Verify**:
-  - [ ] Create appointment for staff with capacity → Success
-  - [ ] Create conflicting appointment → 409 Conflict error
-  - [ ] Create appointment when staff at capacity → Goes to Waiting Queue
+- [x] **Verify**:
+  - [x] Create appointment for staff with capacity → Success
+  - [x] Create conflicting appointment → 409 Conflict error
+  - [x] Create appointment when staff at capacity → Goes to Waiting Queue
 
 ---
 
@@ -152,16 +152,16 @@
 
 **Goal**: Create queue management endpoints.
 
-- [ ] Add to `appointments.controller.ts`:
-  - [ ] `GET /appointments/queue` — list Waiting appointments sorted by time
-  - [ ] `POST /appointments/queue/assign/:staffId` — assign earliest queue item to staff
-- [ ] Add to `appointments.service.ts`:
-  - [ ] `getQueue()` — filter by status=Waiting, sort by appointmentDate+Time
-  - [ ] `assignFromQueue(staffId)` — pop earliest, assign to staff, set status=Scheduled
-  - [ ] Recalculate `queuePosition` after assignment
-- [ ] **Verify**:
-  - [ ] Queue returns Waiting appointments in correct order
-  - [ ] Assign from queue → appointment status changes to Scheduled
+- [x] Add to `appointments.controller.ts`:
+  - [x] `GET /appointments/queue` — list Waiting appointments sorted by time
+  - [x] `POST /appointments/queue/assign/:staffId` — assign earliest queue item to staff
+- [x] Add to `appointments.service.ts`:
+  - [x] `getQueue()` — filter by status=Waiting, sort by appointmentDate+Time
+  - [x] `assignFromQueue(staffId)` — pop earliest, assign to staff, set status=Scheduled
+  - [x] Recalculate `queuePosition` after assignment
+- [x] **Verify**:
+  - [x] Queue returns Waiting appointments in correct order
+  - [x] Assign from queue → appointment status changes to Scheduled
 
 ---
 
