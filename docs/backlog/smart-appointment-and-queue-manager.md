@@ -90,18 +90,18 @@
 
 **Goal**: Create staff management endpoints.
 
-- [ ] Create `src/staff/` module
-  - [ ] `staff.schema.ts` — name, serviceType, dailyCapacity (default 5), availabilityStatus (enum: Available, On Leave), userId (owner)
-  - [ ] `dto/create-staff.dto.ts`
-  - [ ] `dto/update-staff.dto.ts`
-  - [ ] `staff.controller.ts` — `GET /staff`, `POST /staff`, `PUT /staff/:id`, `DELETE /staff/:id`
-  - [ ] `staff.service.ts` — CRUD operations scoped to authenticated user
-- [ ] Add index on `userId` for efficient queries
+- [x] Create `src/staff/` module
+  - [x] `staff.schema.ts` — name, serviceType, dailyCapacity (default 5), availabilityStatus (enum: Available, On Leave), userId (owner)
+  - [x] `dto/create-staff.dto.ts`
+  - [x] `dto/update-staff.dto.ts`
+  - [x] `staff.controller.ts` — `GET /staff`, `POST /staff`, `PUT /staff/:id`, `DELETE /staff/:id`
+  - [x] `staff.service.ts` — CRUD operations scoped to authenticated user
+- [x] Add index on `userId` for efficient queries
 - [ ] **Verify**:
-  - [ ] Create staff member → 201 response
-  - [ ] List staff → returns array scoped to user
-  - [ ] Update staff → changes reflected
-  - [ ] Delete staff → 204 response
+  - [x] Create staff member → 201 response
+    - [x] List staff → returns array scoped to user
+    - [x] Update staff → changes reflected
+    - [x] Delete staff → 204 response
 
 ---
 

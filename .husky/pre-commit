@@ -1,12 +1,53 @@
-echo "🧹 Running pre-commit quality checks..."
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-# Run lint-staged on staged files
-npx lint-staged
+# Exit on error
+set -e
 
-if [ $? -ne 0 ]; then
-  echo "❌ Linting/formatting failed!"
-  echo "Please fix the issues and try again."
-  exit 1
-fi
+echo "Running pre-commit checks..."
 
-echo "✅ Pre-commit checks passed!"
+# Backend checks
+echo "Checking backend..."
+cd backend
+
+# 1. Run TypeScript type checking
+echo "Checking TypeScript types..."
+npx tsc --noEmit
+
+# 2. Run linting (fail on errors only, not warnings)
+echo "Running linter..."
+npx eslint . --ext ts,tsx
+
+# 3. Check formatting
+echo "Checking code formatting..."
+npx prettier --check "src/**/*.{ts,tsx,json,css,md}"
+
+# 4. Run tests
+echo "Running tests..."
+npx vitest run
+
+cd ..
+
+# Frontend checks
+echo "Checking frontend..."
+cd frontend
+
+# 1. Run TypeScript type checking
+echo "Checking TypeScript types..."
+npx tsc --noEmit
+
+# 2. Run linting (fail on errors only, not warnings)
+echo "Running linter..."
+npx eslint . --ext ts,tsx
+
+# 3. Check formatting
+echo "Checking code formatting..."
+npx prettier --check "src/**/*.{ts,tsx,json,css,md}"
+
+# 4. Run tests
+echo "Running tests..."
+npx vitest run
+
+cd ..
+
+echo "All pre-commit checks passed!"

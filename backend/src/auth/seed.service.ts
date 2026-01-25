@@ -8,11 +8,11 @@ export class SeedService implements OnModuleInit {
 
   constructor(private usersService: UsersService) {}
 
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     await this.seedDemoUser();
   }
 
-  private async seedDemoUser() {
+  private async seedDemoUser(): Promise<void> {
     const demoEmail = 'demo@example.com';
     const demoPassword = 'demo123';
     const demoName = 'Demo User';

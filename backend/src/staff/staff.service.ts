@@ -9,26 +9,26 @@ import { Staff, StaffDocument } from './staff.schema.js';
 export class StaffService {
   constructor(@InjectModel(Staff.name) private staffModel: Model<StaffDocument>) {}
 
-  async create(createStaffDto: CreateStaffDto): Promise<Staff> {
-    const createdStaff = new this.staffModel(createStaffDto);
+  async create(createStaffDto: CreateStaffDto, userId: string): Promise<Staff> {
+    const createdStaff = new this.staffModel({ ...createStaffDto, userId });
     return createdStaff.save();
   }
 
-  async findAll(): Promise<Staff[]> {
-    return this.staffModel.find().exec();
+  async findAll(userId: string): Promise<Staff[]> {
+    return this.staffModel.find({ userId }).exec();
   }
 
-  async findOne(id: string): Promise<Staff> {
-    const staff = await this.staffModel.findById(id).exec();
+  async findOne(id: string, userId: string): Promise<Staff> {
+    const staff = await this.staffModel.findOne({ _id: id, userId }).exec();
     if (!staff) {
       throw new NotFoundException('Staff member not found');
     }
     return staff;
   }
 
-  async update(id: string, updateStaffDto: UpdateStaffDto): Promise<Staff> {
+  async update(id: string, updateStaffDto: UpdateStaffDto, userId: string): Promise<Staff> {
     const existingStaff = await this.staffModel
-      .findByIdAndUpdate(id, updateStaffDto, { new: true })
+      .findOneAndUpdate({ _id: id, userId }, updateStaffDto, { new: true })
       .exec();
     if (!existingStaff) {
       throw new NotFoundException('Staff member not found');
@@ -36,8 +36,8 @@ export class StaffService {
     return existingStaff;
   }
 
-  async remove(id: string): Promise<Staff> {
-    const result = await this.staffModel.findByIdAndDelete(id).exec();
+  async remove(id: string, userId: string): Promise<Staff> {
+    const result = await this.staffModel.findOneAndDelete({ _id: id, userId }).exec();
     if (!result) {
       throw new NotFoundException('Staff member not found');
     }
