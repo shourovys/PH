@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-type ValidatedEnv = z.infer<typeof envSchema> | z.infer<typeof productionEnvSchema>;
+type ValidatedEnv = z.infer<typeof envSchema>;
 
 /**
  * Environment validation schema using Zod
@@ -10,7 +10,7 @@ type ValidatedEnv = z.infer<typeof envSchema> | z.infer<typeof productionEnvSche
 // Base environment schema
 const envSchema = z.object({
   // Application Configuration
-  NODE_ENV: z.enum(['development', 'test', 'production']),
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z
     .string()
     .transform((val) => parseInt(val, 10))
@@ -53,14 +53,8 @@ const envSchema = z.object({
   OTEL_EXPORTER_OTLP_ENDPOINT: z
     .string()
     .url('OTEL_EXPORTER_OTLP_ENDPOINT must be a valid URL if provided')
-    .optional(),
-});
-
-// Production-specific validation
-const productionEnvSchema = envSchema.extend({
-  NODE_ENV: z.literal('production'),
-  MONGODB_USER: z.string().min(1, 'MONGODB_USER is required in production'),
-  MONGODB_PASSWORD: z.string().min(1, 'MONGODB_PASSWORD is required in production'),
+    .optional()
+    .or(z.literal('')),
 });
 
 /**
@@ -70,13 +64,13 @@ const productionEnvSchema = envSchema.extend({
  */
 export function validateEnvironment(env: Record<string, string | undefined>): ValidatedEnv {
   try {
-    const nodeEnv = env.NODE_ENV;
+    const parsedEnv = envSchema.safeParse(env);
 
-    if (nodeEnv === 'production') {
-      return productionEnvSchema.parse(env);
+    if (!parsedEnv.success) {
+      throw parsedEnv.error;
     }
 
-    return envSchema.parse(env);
+    return parsedEnv.data;
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errorMessages = error.issues.map(

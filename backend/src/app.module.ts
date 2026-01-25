@@ -25,7 +25,9 @@ import { validateEnvironment } from './config/validation.schema.js';
       expandVariables: true,
     }),
     // MongoDB connection
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017'),
+    MongooseModule.forRoot(process.env.MONGODB_URI!, {
+      dbName: process.env.MONGODB_DB_NAME!,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
