@@ -232,8 +232,8 @@ export class AppointmentsService {
       ActivityAction.QueueToStaff,
       `Appointment for "${appointment.customerName}" auto-assigned to staff.`,
       appointment._id.toString(),
-      staffId,
       userId,
+      staffId,
     );
 
     // Recalculate queue positions

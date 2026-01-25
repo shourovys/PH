@@ -169,16 +169,16 @@
 
 **Goal**: Track important assignment actions.
 
-- [ ] Create `src/activity-log/` module
-  - [ ] `activity-log.schema.ts`:
+- [x] Create `src/activity-log/` module
+  - [x] `activity-log.schema.ts`:
     - `action` (enum: QueueToStaff, ManualAssign, StatusChange)
     - `description`, `appointmentId`, `staffId`, `timestamp`, `userId`
-  - [ ] `activity-log.service.ts` — create log entry, get recent logs (limit 10)
-  - [ ] `activity-log.controller.ts` — `GET /activity-logs`
-- [ ] Integrate logging into appointment assignment logic
-- [ ] **Verify**:
-  - [ ] Assign from queue → activity log created
-  - [ ] `GET /activity-logs` → returns latest 10
+  - [x] `activity-log.service.ts` — create log entry, get recent logs (limit 10)
+  - [x] `activity-log.controller.ts` — `GET /activity-logs`
+- [x] Integrate logging into appointment assignment logic
+- [x] **Verify**:
+  - [x] Assign from queue → activity log created
+  - [x] `GET /activity-logs` → returns latest 10
 
 ---
 
@@ -186,14 +186,14 @@
 
 **Goal**: Aggregated stats endpoint.
 
-- [ ] Create `src/dashboard/` module
-  - [ ] `dashboard.controller.ts` — `GET /dashboard/stats`
-  - [ ] `dashboard.service.ts`:
+- [x] Create `src/dashboard/` module
+  - [x] `dashboard.controller.ts` — `GET /dashboard/stats`
+  - [x] `dashboard.service.ts`:
     - `getTodayStats()`: totalAppointments, completed, pending, waitingQueueCount
     - `getStaffLoad()`: array of { staffId, name, current, max, status }
-- [ ] **Verify**:
-  - [ ] Dashboard stats returns correct counts
-  - [ ] Staff load shows accurate capacity numbers
+- [x] **Verify**:
+  - [x] Dashboard stats returns correct counts
+  - [x] Staff load shows accurate capacity numbers
 
 ---
 
@@ -321,12 +321,12 @@
 
 **Goal**: Form for staff management.
 
-- [x] Create `src/features/staff/components/StaffFormDialog.tsx`:
+- [ ] Create `src/features/staff/components/StaffFormDialog.tsx`:
   - Fields: Name, Service Type (dropdown), Daily Capacity (number), Availability Status (switch/select)
   - Zod validation
   - Create vs Edit mode
-- [x] On submit → call API → refresh list → close dialog → show toast
-- [x] **Verify**: Create staff → appears in list; Edit staff → changes reflected
+- [ ] On submit → call API → refresh list → close dialog → show toast
+- [ ] **Verify**: Create staff → appears in list; Edit staff → changes reflected
 
 ---
 
@@ -538,9 +538,9 @@
 
 **Goal**: Document all endpoints.
 
-- [x] Add Swagger/OpenAPI via `@nestjs/swagger`
-- [x] Document all endpoints with examples
-- [x] **Verify**: `/api/docs` shows swagger UI
+- [ ] Add Swagger/OpenAPI via `@nestjs/swagger`
+- [ ] Document all endpoints with examples
+- [ ] **Verify**: `/api/docs` shows swagger UI
 
 ---
 
@@ -549,11 +549,11 @@
 **Goal**: Project setup instructions.
 
 - [ ] Update `frontend/README.md` with setup steps
-- [x] Update `backend/README.md` with:
+- [ ] Update `backend/README.md` with:
   - Environment variables
   - MongoDB setup
   - Demo user credentials
-- [x] **Verify**: New developer can setup project from README
+- [ ] **Verify**: New developer can setup project from README
 
 ---
 

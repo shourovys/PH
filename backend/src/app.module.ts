@@ -7,6 +7,7 @@ import { AppService } from './app.service.js';
 import { AppointmentsModule } from './appointments/appointments.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { validateEnvironment } from './config/validation.schema.js';
+import { DashboardModule } from './dashboard/dashboard.module.js';
 import { ServicesDefinitionModule } from './services-definition/services-definition.module.js';
 import { StaffModule } from './staff/staff.module.js';
 
@@ -38,6 +39,7 @@ import { StaffModule } from './staff/staff.module.js';
     StaffModule,
     AppointmentsModule,
     ActivityLogModule,
+    DashboardModule,
   ],
 
   controllers: [AppController],
