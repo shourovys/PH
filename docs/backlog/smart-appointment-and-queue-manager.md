@@ -224,14 +224,14 @@
 
 **Goal**: Main app layout with sidebar navigation.
 
-- [ ] Create `src/components/layouts/MainLayout.tsx`:
+- [x] Create `src/components/layouts/MainLayout.tsx`:
   - Sidebar with nav links (Dashboard, Staff, Services, Appointments, Queue)
   - Header with user info and logout
   - Main content area with `<Outlet />`
-- [ ] Create `src/components/layouts/Sidebar.tsx`
-- [ ] Create `src/components/layouts/Header.tsx`
-- [ ] Add icons from lucide-react
-- [ ] **Verify**: Navigate between pages, layout persists
+- [x] Create `src/components/layouts/Sidebar.tsx`
+- [x] Create `src/components/layouts/Header.tsx`
+- [x] Add icons from lucide-react
+- [x] **Verify**: Navigate between pages, layout persists
 
 ---
 

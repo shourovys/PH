@@ -1,8 +1,7 @@
 import React from 'react';
 
+import MainLayout from '@/components/layouts/MainLayout';
 import type { RouteConfig } from '@/types/route.types';
-
-import DashboardLayout from '../layouts/DashboardLayout';
 
 // Define dashboard route link constants
 export const DASHBOARD_LINKS = {
@@ -12,7 +11,7 @@ export const DASHBOARD_LINKS = {
 
 export const DASHBOARD_ROUTES: RouteConfig[] = [
   {
-    element: DashboardLayout,
+    element: MainLayout,
     isLayout: true,
     path: DASHBOARD_LINKS.DASHBOARD,
     auth: 'authenticated',
