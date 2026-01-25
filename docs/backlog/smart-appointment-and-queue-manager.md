@@ -115,7 +115,7 @@
   - [x] `dto/update-service.dto.ts`
   - [x] `services-definition.controller.ts` — CRUD endpoints
   - [x] `services-definition.service.ts`
-- [ ] **Verify**: Same as Story 1.3 verification pattern
+- [x] **Verify**: Same as Story 1.3 verification pattern
 
 ---
 
