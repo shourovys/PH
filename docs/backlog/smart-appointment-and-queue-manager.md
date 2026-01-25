@@ -205,18 +205,18 @@
 
 **Goal**: Expand component library for forms and dialogs.
 
-- [ ] Install/create components:
-  - [ ] `Select` — for dropdowns (staff type, status, duration)
-  - [ ] `Dialog` — for modals (create/edit forms)
-  - [ ] `Badge` — for status badges
-  - [ ] `Table` — for data lists
-  - [ ] `Toast` / `Sonner` — for notifications
-  - [ ] `Calendar` + `DatePicker` — for appointment date
-  - [ ] `TimePicker` — for appointment time
-  - [ ] `Avatar` — for staff display
-  - [ ] `Skeleton` — for loading states
-  - [ ] `Alert` — for warnings (capacity exceeded, conflicts)
-- [ ] **Verify**: Each component renders without errors in Storybook or test page
+- [x] Install/create components:
+  - [x] `Select` — for dropdowns (staff type, status, duration)
+  - [x] `Dialog` — for modals (create/edit forms)
+  - [x] `Badge` — for status badges
+  - [x] `Table` — for data lists
+  - [x] `Sonner` — for notifications
+  - [x] `Calendar` + `DatePicker` — for appointment date
+  - [x] `TimePicker` — for appointment time
+  - [x] `Avatar` — for staff display
+  - [x] `Skeleton` — for loading states
+  - [x] `Alert` — for warnings (capacity exceeded, conflicts)
+- [x] **Verify**: Each component renders without errors in Storybook or test page
 
 ---
 

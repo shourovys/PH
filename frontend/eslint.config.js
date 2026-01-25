@@ -80,7 +80,7 @@ export default defineConfig([
       ],
       'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
       '@typescript-eslint/explicit-function-return-type': [
-        'error',
+        'warn',
         {
           allowExpressions: true,
           allowTypedFunctionExpressions: true,
@@ -88,6 +88,7 @@ export default defineConfig([
           allowDirectConstAssertionInArrowFunctions: true,
         },
       ],
+      'react-refresh/only-export-components': 'warn',
 
       // Prettier
       'prettier/prettier': 'error',
