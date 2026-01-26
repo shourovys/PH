@@ -305,15 +305,15 @@
 
 **Goal**: Display all staff with CRUD actions.
 
-- [ ] Create `src/features/staff/pages/StaffListPage.tsx`:
+- [x] Create `src/features/staff/pages/StaffListPage.tsx`:
   - Fetch staff with `useStaff()` hook
   - Display in `Table` component
   - Columns: Name, Service Type, Daily Capacity, Status, Actions
   - "Add Staff" button → opens dialog
   - Actions: Edit, Delete
-- [ ] Show empty state when no staff
-- [ ] Show loading skeleton while fetching
-- [ ] **Verify**: Staff list displays correctly, CRUD works
+- [x] Show empty state when no staff
+- [x] Show loading skeleton while fetching
+- [x] **Verify**: Staff list displays correctly, CRUD works
 
 ---
 
