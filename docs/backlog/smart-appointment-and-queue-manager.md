@@ -289,15 +289,15 @@
 
 **Goal**: Scaffold staff module following existing patterns.
 
-- [ ] Create `src/features/staff/` structure:
-  - [ ] `staff.types.ts` — Staff interface
-  - [ ] `services/staff.service.ts` — API calls
-  - [ ] `hooks/use-staff.ts` — SWR data fetching
-  - [ ] `store/staff.store.ts` — if needed for local state
-  - [ ] `routes/staff.routes.ts` — routes definition
-  - [ ] `index.ts` — exports
-- [ ] Register routes in `config/routes.ts`
-- [ ] **Verify**: Route `/staff` accessible (empty page OK)
+- [x] Create `src/features/staff/` structure:
+  - [x] `staff.types.ts` — Staff interface
+  - [x] `services/staff.service.ts` — API calls
+  - [x] `hooks/use-staff.ts` — SWR data fetching
+  - [x] `store/staff.store.ts` — if needed for local state
+  - [x] `routes/staff.routes.ts` — routes definition
+  - [x] `index.ts` — exports
+- [x] Register routes in `config/routes.ts`
+- [x] **Verify**: Route `/staff` accessible (empty page OK)
 
 ---
 
