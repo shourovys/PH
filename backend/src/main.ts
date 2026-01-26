@@ -5,6 +5,12 @@ import { AppModule } from './app.module.js';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
+  // Enable CORS
+  app.enableCors();
+
+  // Set global prefix for all routes
+  app.setGlobalPrefix('api');
+
   // Setup Swagger
   const config = new DocumentBuilder()
     .setTitle('Smart Appointment & Queue Manager API')
