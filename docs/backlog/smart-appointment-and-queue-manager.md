@@ -259,11 +259,11 @@
 
 **Goal**: One-click demo access.
 
-- [ ] Update `LoginForm.tsx`:
-  - [ ] Add "Demo Login" button below form
-  - [ ] On click → call login with `demo@example.com` / `demo123`
-- [ ] Style button distinctly (secondary variant)
-- [ ] **Verify**: Click demo button → auto-login → Dashboard
+- [x] Update `LoginForm.tsx`:
+  - [x] Add "Demo Login" button below form
+  - [x] On click → call login with `demo@example.com` / `demo123`
+- [x] Style button distinctly (secondary variant)
+- [x] **Verify**: Click demo button → auto-login → Dashboard
 
 ---
 

@@ -28,6 +28,10 @@ export function LoginForm(): ReactElement {
     await login(email, password);
   };
 
+  const handleDemoLogin = async (): Promise<void> => {
+    await login('demo@example.com', 'demo123');
+  };
+
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
@@ -66,9 +70,19 @@ export function LoginForm(): ReactElement {
             </p>
           )}
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col space-y-2 mt-4">
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? 'Logging in...' : 'Login'}
+          </Button>
+          <p>or</p>
+          <Button
+            type="button"
+            variant="secondary"
+            className="w-full"
+            onClick={handleDemoLogin}
+            disabled={isLoading}
+          >
+            Demo Login
           </Button>
         </CardFooter>
       </form>

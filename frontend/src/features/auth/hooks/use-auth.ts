@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { authService } from '../services';
 import { authSelectors, useAuthStore, type User } from '../store/auth.store';
 
 /**
@@ -11,6 +12,7 @@ interface UseAuthReturn {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<User>;
+  register: (name: string, email: string, password: string) => Promise<User>;
   logout: () => void;
   updateProfile: (updates: Partial<User>) => void;
 }
@@ -32,31 +34,43 @@ export function useAuth(): UseAuthReturn {
 
   /**
    * Login function
-   * In a real app, this would call an API endpoint
    */
   const login = useCallback(
-    async (email: string, _password: string): Promise<User> => {
+    async (email: string, password: string): Promise<User> => {
       setLoading(true);
       setError(null);
 
       try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        const namePart = email.split('@')[0];
-        const user: User = {
-          id: '1',
-          email,
-          name: namePart || 'User',
-          role: 'user',
-        };
-
-        setUser(user);
-        localStorage.setItem('auth_token', 'mock-token');
-
-        return user;
+        const response = await authService.login({ email, password });
+        setUser(response.user);
+        localStorage.setItem('auth_token', response.token);
+        return response.user;
       } catch {
         const errorMessage = 'Login failed. Please check your credentials.';
+        setError(errorMessage);
+        throw new Error(errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setUser, setLoading, setError]
+  );
+
+  /**
+   * Register function
+   */
+  const register = useCallback(
+    async (name: string, email: string, password: string): Promise<User> => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await authService.register({ name, email, password });
+        setUser(response.user);
+        localStorage.setItem('auth_token', response.token);
+        return response.user;
+      } catch {
+        const errorMessage = 'Registration failed. Please try again.';
         setError(errorMessage);
         throw new Error(errorMessage);
       } finally {
@@ -93,6 +107,7 @@ export function useAuth(): UseAuthReturn {
     isLoading,
     error,
     login,
+    register,
     logout,
     updateProfile,
   };
