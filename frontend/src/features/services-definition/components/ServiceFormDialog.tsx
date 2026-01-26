@@ -21,64 +21,64 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import { staffService } from '../services/staff.service';
-import type { CreateStaffRequest, Staff, UpdateStaffRequest } from '../staff.types';
+import type {
+  CreateServiceRequest,
+  ServiceDefinition,
+  UpdateServiceRequest,
+} from '../services-definition.types';
+import { servicesDefinitionService } from '../services/services-definition.service';
 
-const staffSchema = z.object({
+const serviceSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  serviceType: z.string().min(1, 'Service type is required'),
-  dailyCapacity: z.number().min(1, 'Capacity must be at least 1'),
-  availabilityStatus: z.enum(['Available', 'On Leave']),
+  duration: z.union([z.literal(15), z.literal(30), z.literal(60)]),
+  requiredStaffType: z.string().min(1, 'Required staff type is required'),
 });
 
-type StaffFormData = z.infer<typeof staffSchema>;
+type ServiceFormData = z.infer<typeof serviceSchema>;
 
-interface StaffFormDialogProps {
+interface ServiceFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  staff?: Staff;
+  service?: ServiceDefinition;
   onSuccess: () => void;
 }
 
-export function StaffFormDialog({
+export function ServiceFormDialog({
   open,
   onOpenChange,
-  staff,
+  service,
   onSuccess,
-}: StaffFormDialogProps): ReactElement {
-  const isEdit = !!staff;
+}: ServiceFormDialogProps): ReactElement {
+  const isEdit = !!service;
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<StaffFormData>({
+  const [formData, setFormData] = useState<ServiceFormData>({
     name: '',
-    serviceType: '',
-    dailyCapacity: 5,
-    availabilityStatus: 'Available',
+    duration: 15,
+    requiredStaffType: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    if (staff) {
+    if (service) {
       setFormData({
-        name: staff.name,
-        serviceType: staff.serviceType,
-        dailyCapacity: staff.dailyCapacity,
-        availabilityStatus: staff.availabilityStatus,
+        name: service.name,
+        duration: service.duration,
+        requiredStaffType: service.requiredStaffType,
       });
     } else {
       setFormData({
         name: '',
-        serviceType: '',
-        dailyCapacity: 5,
-        availabilityStatus: 'Available',
+        duration: 15,
+        requiredStaffType: '',
       });
     }
     setErrors({});
-  }, [staff, open]);
+  }, [service, open]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
-    const result = staffSchema.safeParse(formData);
+    const result = serviceSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
@@ -91,23 +91,23 @@ export function StaffFormDialog({
 
     setIsLoading(true);
     try {
-      if (isEdit && staff) {
-        await staffService.updateStaff(staff.id, formData as UpdateStaffRequest);
-        toast.success('Staff member updated successfully');
+      if (isEdit && service) {
+        await servicesDefinitionService.updateService(service.id, formData as UpdateServiceRequest);
+        toast.success('Service updated successfully');
       } else {
-        await staffService.createStaff(formData as CreateStaffRequest);
-        toast.success('Staff member created successfully');
+        await servicesDefinitionService.createService(formData as CreateServiceRequest);
+        toast.success('Service created successfully');
       }
       onSuccess();
       onOpenChange(false);
     } catch {
-      toast.error(isEdit ? 'Failed to update staff member' : 'Failed to create staff member');
+      toast.error(isEdit ? 'Failed to update service' : 'Failed to create service');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (field: keyof StaffFormData, value: string | number): void => {
+  const handleChange = (field: keyof ServiceFormData, value: string | number): void => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => {
@@ -122,9 +122,9 @@ export function StaffFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Staff Member' : 'Add Staff Member'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Service' : 'Add Service'}</DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Update the staff member details.' : 'Add a new staff member to your team.'}
+            {isEdit ? 'Update the service details.' : 'Add a new service to your offerings.'}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -136,67 +136,50 @@ export function StaffFormDialog({
                   id="name"
                   value={formData.name}
                   onChange={(e) => handleChange('name', e.target.value)}
-                  placeholder="Staff name"
+                  placeholder="Service name"
                   disabled={isLoading}
                 />
                 {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
               </div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="serviceType">Service Type</Label>
+              <Label htmlFor="duration">Duration</Label>
               <div className="col-span-3">
                 <Select
-                  value={formData.serviceType}
-                  onValueChange={(value) => handleChange('serviceType', value)}
-                  disabled={isLoading}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select service type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="General">General</SelectItem>
-                    <SelectItem value="Specialist">Specialist</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.serviceType && (
-                  <p className="text-sm text-destructive mt-1">{errors.serviceType}</p>
-                )}
-              </div>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="dailyCapacity">Daily Capacity</Label>
-              <div className="col-span-3">
-                <Input
-                  id="dailyCapacity"
-                  type="number"
-                  value={formData.dailyCapacity}
-                  onChange={(e) => handleChange('dailyCapacity', parseInt(e.target.value) || 1)}
-                  min={1}
-                  disabled={isLoading}
-                />
-                {errors.dailyCapacity && (
-                  <p className="text-sm text-destructive mt-1">{errors.dailyCapacity}</p>
-                )}
-              </div>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="availabilityStatus">Status</Label>
-              <div className="col-span-3">
-                <Select
-                  value={formData.availabilityStatus}
-                  onValueChange={(value: 'Available' | 'On Leave') =>
-                    handleChange('availabilityStatus', value)
-                  }
+                  value={formData.duration.toString()}
+                  onValueChange={(value) => handleChange('duration', parseInt(value))}
                   disabled={isLoading}
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Available">Available</SelectItem>
-                    <SelectItem value="On Leave">On Leave</SelectItem>
+                    <SelectItem value="15">15 minutes</SelectItem>
+                    <SelectItem value="30">30 minutes</SelectItem>
+                    <SelectItem value="60">60 minutes</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="requiredStaffType">Staff Type</Label>
+              <div className="col-span-3">
+                <Select
+                  value={formData.requiredStaffType}
+                  onValueChange={(value) => handleChange('requiredStaffType', value)}
+                  disabled={isLoading}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select staff type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="General">General</SelectItem>
+                    <SelectItem value="Specialist">Specialist</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.requiredStaffType && (
+                  <p className="text-sm text-destructive mt-1">{errors.requiredStaffType}</p>
+                )}
               </div>
             </div>
           </div>

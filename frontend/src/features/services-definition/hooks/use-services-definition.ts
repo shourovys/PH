@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
-import type { ServiceDefinition } from '../services-definition.types';
 import { servicesDefinitionService } from '../services/services-definition.service';
+import type { ServiceDefinition } from '../services-definition.types';
 
 /**
  * Hook for fetching services definition data

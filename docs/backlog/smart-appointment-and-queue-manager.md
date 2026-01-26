@@ -348,12 +348,12 @@
 
 **Goal**: Display and manage services.
 
-- [ ] Create `ServiceListPage.tsx`:
+- [x] Create `ServiceListPage.tsx`:
   - Table: Name, Duration, Required Staff Type, Actions
   - Add/Edit/Delete functionality
-- [ ] Create `ServiceFormDialog.tsx`:
+- [x] Create `ServiceFormDialog.tsx`:
   - Fields: Name, Duration (dropdown: 15/30/60), Required Staff Type (dropdown)
-- [ ] **Verify**: CRUD operations work
+- [x] **Verify**: CRUD operations work
 
 ---
 
