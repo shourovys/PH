@@ -1,5 +1,4 @@
 import { Calendar, Clock, Home, Settings, Users } from 'lucide-react';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
@@ -10,7 +9,7 @@ const navItems = [
   { to: '/queue', label: 'Queue', icon: Clock },
 ];
 
-export const Sidebar: React.FC = () => {
+export default function Sidebar() {
   return (
     <aside className="w-64 bg-white shadow-lg">
       <div className="p-6">
@@ -39,4 +38,4 @@ export const Sidebar: React.FC = () => {
       </nav>
     </aside>
   );
-};
+}

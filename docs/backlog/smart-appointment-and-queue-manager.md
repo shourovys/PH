@@ -243,15 +243,15 @@
 
 **Goal**: Replace mock login with actual API calls.
 
-- [ ] Update `auth.service.ts` (already structured) to use real endpoints
-- [ ] Update `use-auth.ts`:
+- [x] Update `auth.service.ts` (already structured) to use real endpoints
+- [x] Update `use-auth.ts`:
   - Replace mock `setTimeout` with `authService.login()`
   - Store JWT in localStorage
   - Add `register` function
-- [ ] Add token refresh logic if needed
-- [ ] **Verify**:
-  - [ ] Login with valid credentials → Dashboard redirect
-  - [ ] Login with invalid credentials → Error message shown
+- [x] Add token refresh logic if needed
+- [x] **Verify**:
+  - [x] Login with valid credentials → Dashboard redirect
+  - [x] Login with invalid credentials → Error message shown
 
 ---
 
