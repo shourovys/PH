@@ -18,11 +18,13 @@ export const appointmentsService = {
     date?: string;
     staffId?: string;
     status?: string;
+    userId?: string;
   }): Promise<Appointment[]> => {
     const params = new URLSearchParams();
     if (filters?.date) params.append('date', filters.date);
     if (filters?.staffId) params.append('staffId', filters.staffId);
     if (filters?.status) params.append('status', filters.status);
+    if (filters?.userId) params.append('userId', filters.userId);
 
     const url = `/appointments${params.toString() ? `?${params.toString()}` : ''}`;
     const response = await apiClient.get<Appointment[]>(url);
@@ -66,16 +68,18 @@ export const appointmentsService = {
   /**
    * Get waiting queue
    */
-  getQueue: async (): Promise<Appointment[]> => {
-    const response = await apiClient.get<Appointment[]>('/appointments/queue');
+  getQueue: async (userId: string): Promise<Appointment[]> => {
+    const response = await apiClient.get<Appointment[]>(`/appointments/queue?userId=${userId}`);
     return response.data.data;
   },
 
   /**
    * Assign from queue to staff
    */
-  assignFromQueue: async (staffId: string): Promise<Appointment> => {
-    const response = await apiClient.post<Appointment>(`/appointments/queue/assign/${staffId}`);
+  assignFromQueue: async (staffId: string, userId: string): Promise<Appointment> => {
+    const response = await apiClient.post<Appointment>(
+      `/appointments/queue/assign/${staffId}?userId=${userId}`
+    );
     return response.data.data;
   },
 };
