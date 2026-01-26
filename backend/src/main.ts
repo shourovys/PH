@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor.js';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +11,9 @@ async function bootstrap(): Promise<void> {
 
   // Set global prefix for all routes
   app.setGlobalPrefix('api');
+
+  // Apply global response transformation interceptor
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   // Setup Swagger
   const config = new DocumentBuilder()
