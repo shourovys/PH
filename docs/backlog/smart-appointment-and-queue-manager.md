@@ -365,9 +365,9 @@
 
 **Goal**: Scaffold appointment module.
 
-- [ ] Create `src/features/appointments/` structure
-- [ ] Register routes (`/appointments`)
-- [ ] **Verify**: Route accessible
+- [x] Create `src/features/appointments/` structure
+- [x] Register routes (`/appointments`)
+- [x] **Verify**: Route accessible
 
 ---
 

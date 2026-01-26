@@ -19,6 +19,7 @@ export const routes: RouteConfig[] = [
       ...DASHBOARD_ROUTES,
       ...STAFF_ROUTES,
       ...SERVICES_DEFINITION_ROUTES,
+      ...APPOINTMENTS_ROUTES,
     ],
   },
 ];
