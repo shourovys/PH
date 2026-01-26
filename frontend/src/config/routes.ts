@@ -1,4 +1,5 @@
 import MainLayout from '@/components/layouts/MainLayout';
+import { APPOINTMENTS_ROUTES } from '@/features/appointments';
 import { AUTH_ROUTES } from '@/features/auth';
 import { DASHBOARD_LINKS, DASHBOARD_ROUTES } from '@/features/dashboard';
 import { DEMO_ROUTES } from '@/features/demo';

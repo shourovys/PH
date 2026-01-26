@@ -375,13 +375,13 @@
 
 **Goal**: Display appointments with filters.
 
-- [ ] Create `AppointmentsListPage.tsx`:
+- [x] Create `AppointmentsListPage.tsx`:
   - Filters: Date (DatePicker), Staff (Select), Status (Select)
   - Table: Customer Name, Service, Staff, Date, Time, Status, Actions
   - Actions: Edit, Cancel, Mark Complete, Mark No-Show
   - "New Appointment" button
-- [ ] Show status with color-coded badges
-- [ ] **Verify**: Filtering works, CRUD works
+- [x] Show status with color-coded badges
+- [x] **Verify**: Filtering works, CRUD works
 
 ---
 
