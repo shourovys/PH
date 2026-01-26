@@ -61,7 +61,7 @@ function ServicesDefinitionListPage(): React.ReactElement {
           </TableHeader>
           <TableBody>
             {services.map((service) => (
-              <TableRow key={service.id}>
+              <TableRow key={service._id}>
                 <TableCell>{service.name}</TableCell>
                 <TableCell>{service.duration} minutes</TableCell>
                 <TableCell>{service.requiredStaffType}</TableCell>

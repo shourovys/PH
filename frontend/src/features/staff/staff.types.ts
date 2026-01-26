@@ -1,5 +1,5 @@
 export interface Staff {
-  id: string;
+  _id: string;
   name: string;
   serviceType: string;
   dailyCapacity: number;

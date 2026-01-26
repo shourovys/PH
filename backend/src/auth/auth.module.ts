@@ -4,6 +4,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 
+import { ServicesDefinitionModule } from '../services-definition/services-definition.module.js';
+import { StaffModule } from '../staff/staff.module.js';
 import { User, UserSchema } from '../users/user.schema.js';
 import { UsersService } from '../users/users.service.js';
 import { AuthController } from './auth.controller.js';
@@ -24,10 +26,11 @@ import { JwtStrategy } from './strategies/jwt.strategy.js';
       }),
       inject: [ConfigService],
     }),
+    ServicesDefinitionModule,
+    StaffModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, UsersService, JwtStrategy, JwtAuthGuard, SeedService],
   exports: [AuthService, JwtAuthGuard],
 })
-
 export class AuthModule {}

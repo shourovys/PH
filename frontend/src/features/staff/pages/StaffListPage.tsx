@@ -64,7 +64,7 @@ function StaffListPage(): React.ReactElement {
           </TableHeader>
           <TableBody>
             {staff.map((member) => (
-              <TableRow key={member.id}>
+              <TableRow key={member._id}>
                 <TableCell>{member.name}</TableCell>
                 <TableCell>{member.serviceType}</TableCell>
                 <TableCell>{member.dailyCapacity}</TableCell>

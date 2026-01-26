@@ -9,13 +9,15 @@ import type { RouteConfig } from '@/types/route.types';
 
 // Define all routes in a centralized configuration
 export const routes: RouteConfig[] = [
+  // Auth routes (public/guest)
+  ...AUTH_ROUTES,
+  // Authenticated routes
   {
     element: MainLayout,
     isLayout: true,
     path: DASHBOARD_LINKS.DASHBOARD,
     auth: 'authenticated',
     children: [
-      ...AUTH_ROUTES,
       ...DEMO_ROUTES,
       ...DASHBOARD_ROUTES,
       ...STAFF_ROUTES,

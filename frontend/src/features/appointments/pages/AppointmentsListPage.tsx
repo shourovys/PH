@@ -19,18 +19,36 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import type { Appointment } from '../appointments.types';
+import { AppointmentFormDialog } from '../components/AppointmentFormDialog';
 import { useAppointments } from '../hooks/use-appointments';
 
 function AppointmentsListPage(): React.ReactElement {
   const [dateFilter, setDateFilter] = useState('');
   const [staffFilter, setStaffFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingAppointment, setEditingAppointment] = useState<Appointment | undefined>();
 
-  const { appointments, isLoading } = useAppointments({
+  const { appointments, isLoading, mutate } = useAppointments({
     date: dateFilter || undefined,
     staffId: staffFilter === 'all' ? undefined : staffFilter || undefined,
     status: statusFilter === 'all' ? undefined : statusFilter || undefined,
   });
+
+  const handleNewAppointment = (): void => {
+    setEditingAppointment(undefined);
+    setDialogOpen(true);
+  };
+
+  const handleEditAppointment = (appointment: Appointment): void => {
+    setEditingAppointment(appointment);
+    setDialogOpen(true);
+  };
+
+  const handleDialogSuccess = (): void => {
+    mutate();
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -40,7 +58,7 @@ function AppointmentsListPage(): React.ReactElement {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Appointments Management</h1>
-        <Button>New Appointment</Button>
+        <Button onClick={handleNewAppointment}>New Appointment</Button>
       </div>
 
       {/* Filters */}
@@ -130,7 +148,12 @@ function AppointmentsListPage(): React.ReactElement {
                   </span>
                 </TableCell>
                 <TableCell>
-                  <Button variant="outline" size="sm" className="mr-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mr-2"
+                    onClick={() => handleEditAppointment(appointment)}
+                  >
                     Edit
                   </Button>
                   <Button variant="outline" size="sm" className="mr-2">
@@ -148,6 +171,13 @@ function AppointmentsListPage(): React.ReactElement {
           </TableBody>
         </Table>
       )}
+
+      <AppointmentFormDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        appointment={editingAppointment}
+        onSuccess={handleDialogSuccess}
+      />
     </div>
   );
 }

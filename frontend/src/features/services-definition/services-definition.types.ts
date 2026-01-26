@@ -1,5 +1,5 @@
 export interface ServiceDefinition {
-  id: string;
+  _id: string;
   name: string;
   duration: 15 | 30 | 60;
   requiredStaffType: string;

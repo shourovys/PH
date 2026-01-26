@@ -21,12 +21,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import { servicesDefinitionService } from '../services/services-definition.service';
 import type {
   CreateServiceRequest,
   ServiceDefinition,
   UpdateServiceRequest,
 } from '../services-definition.types';
+import { servicesDefinitionService } from '../services/services-definition.service';
 
 const serviceSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -92,7 +92,10 @@ export function ServiceFormDialog({
     setIsLoading(true);
     try {
       if (isEdit && service) {
-        await servicesDefinitionService.updateService(service.id, formData as UpdateServiceRequest);
+        await servicesDefinitionService.updateService(
+          service._id,
+          formData as UpdateServiceRequest
+        );
         toast.success('Service updated successfully');
       } else {
         await servicesDefinitionService.createService(formData as CreateServiceRequest);

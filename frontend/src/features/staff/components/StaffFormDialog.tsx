@@ -92,7 +92,7 @@ export function StaffFormDialog({
     setIsLoading(true);
     try {
       if (isEdit && staff) {
-        await staffService.updateStaff(staff.id, formData as UpdateStaffRequest);
+        await staffService.updateStaff(staff._id, formData as UpdateStaffRequest);
         toast.success('Staff member updated successfully');
       } else {
         await staffService.createStaff(formData as CreateStaffRequest);

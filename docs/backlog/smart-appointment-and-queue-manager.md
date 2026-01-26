@@ -389,7 +389,7 @@
 
 **Goal**: Book appointments with validation.
 
-- [ ] Create `AppointmentFormDialog.tsx`:
+- [x] Create `AppointmentFormDialog.tsx`:
   - Fields:
     - Customer Name (input)
     - Service (Select — loads from services)
@@ -403,7 +403,7 @@
   - On submit:
     - API returns conflict → show error Alert with options
     - API returns success → refresh + toast
-- [ ] **Verify**:
+- [x] **Verify**:
   - [ ] Select staff → see capacity
   - [ ] Book at capacity → warning shown
   - [ ] Time conflict → error + options (pick another staff, change time)
