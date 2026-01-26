@@ -1,6 +1,15 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -22,6 +31,7 @@ import {
 import type { Appointment } from '../appointments.types';
 import { AppointmentFormDialog } from '../components/AppointmentFormDialog';
 import { useAppointments } from '../hooks/use-appointments';
+import { appointmentsService } from '../services/appointments.service';
 
 function AppointmentsListPage(): React.ReactElement {
   const [dateFilter, setDateFilter] = useState('');
@@ -29,6 +39,8 @@ function AppointmentsListPage(): React.ReactElement {
   const [statusFilter, setStatusFilter] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | undefined>();
+  const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
+  const [cancelAppointment, setCancelAppointment] = useState<Appointment | null>(null);
 
   const { appointments, isLoading, mutate } = useAppointments({
     date: dateFilter || undefined,
@@ -48,6 +60,35 @@ function AppointmentsListPage(): React.ReactElement {
 
   const handleDialogSuccess = (): void => {
     mutate();
+  };
+  const handleStatusChange = async (
+    appointment: Appointment,
+    newStatus: Appointment['status']
+  ): Promise<void> => {
+    try {
+      await appointmentsService.updateAppointmentStatus(appointment.id, newStatus);
+      toast.success(`Appointment status updated to ${newStatus}`);
+      mutate();
+    } catch {
+      toast.error('Failed to update appointment status');
+    }
+  };
+  const handleCancelClick = (appointment: Appointment): void => {
+    setCancelAppointment(appointment);
+    setConfirmCancelOpen(true);
+  };
+  const handleConfirmCancel = async (): Promise<void> => {
+    if (!cancelAppointment) return;
+    try {
+      await appointmentsService.updateAppointmentStatus(cancelAppointment.id, 'Cancelled');
+      toast.success('Appointment cancelled');
+      mutate();
+    } catch {
+      toast.error('Failed to cancel appointment');
+    } finally {
+      setConfirmCancelOpen(false);
+      setCancelAppointment(null);
+    }
   };
 
   if (isLoading) {
@@ -156,21 +197,59 @@ function AppointmentsListPage(): React.ReactElement {
                   >
                     Edit
                   </Button>
-                  <Button variant="outline" size="sm" className="mr-2">
-                    Cancel
-                  </Button>
-                  <Button variant="outline" size="sm" className="mr-2">
-                    Complete
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    No-Show
-                  </Button>
+                  {appointment.status === 'Scheduled' && (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mr-2"
+                        onClick={() => handleStatusChange(appointment, 'Completed')}
+                      >
+                        Complete
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mr-2"
+                        onClick={() => handleStatusChange(appointment, 'No-Show')}
+                      >
+                        No-Show
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleCancelClick(appointment)}
+                      >
+                        Cancel
+                      </Button>
+                    </>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       )}
+
+      <Dialog open={confirmCancelOpen} onOpenChange={setConfirmCancelOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Cancellation</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to cancel the appointment for {cancelAppointment?.customerName}?
+              This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmCancelOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleConfirmCancel}>
+              Confirm Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <AppointmentFormDialog
         open={dialogOpen}
