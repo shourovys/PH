@@ -43,7 +43,7 @@ export function useAuth(): UseAuthReturn {
       try {
         const response = await authService.login({ email, password });
         setUser(response.user);
-        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('auth_token', response.access_token);
         return response.user;
       } catch {
         const errorMessage = 'Login failed. Please check your credentials.';
@@ -67,7 +67,7 @@ export function useAuth(): UseAuthReturn {
       try {
         const response = await authService.register({ name, email, password });
         setUser(response.user);
-        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('auth_token', response.access_token);
         return response.user;
       } catch {
         const errorMessage = 'Registration failed. Please try again.';

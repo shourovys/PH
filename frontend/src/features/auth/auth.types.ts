@@ -21,7 +21,7 @@ export interface LoginCredentials {
  */
 export interface AuthResponse {
   user: User;
-  token: string;
+  access_token: string;
 }
 
 /**

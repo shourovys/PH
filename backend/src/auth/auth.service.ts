@@ -13,7 +13,6 @@ export interface JwtPayload {
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
@@ -27,7 +26,13 @@ export class AuthService {
     return null;
   }
 
-  async login(email: string, password: string): Promise<{ access_token: string }> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{
+    user: { id: string; email: string; name: string; role: string };
+    access_token: string;
+  }> {
     const user = await this.validateUser(email, password);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -35,20 +40,42 @@ export class AuthService {
 
     const payload: JwtPayload = { email: user.email, sub: user._id.toString(), role: user.role };
     return {
+      user: {
+        id: user._id.toString(),
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
       access_token: this.jwtService.sign(payload),
     };
   }
 
-
-  async register(email: string, password: string, name: string): Promise<{ access_token: string }> {
+  async register(
+    email: string,
+    password: string,
+    name: string,
+  ): Promise<{
+    user: { id: string; email: string; name: string; role: string };
+    access_token: string;
+  }> {
     const existingUser = await this.usersService.findByEmail(email);
     if (existingUser) {
       throw new UnauthorizedException('Email already in use');
     }
 
     const newUser = await this.usersService.createUser(email, password, name);
-    const payload: JwtPayload = { email: newUser.email, sub: newUser._id.toString(), role: newUser.role };
+    const payload: JwtPayload = {
+      email: newUser.email,
+      sub: newUser._id.toString(),
+      role: newUser.role,
+    };
     return {
+      user: {
+        id: newUser._id.toString(),
+        email: newUser.email,
+        name: newUser.name,
+        role: newUser.role,
+      },
       access_token: this.jwtService.sign(payload),
     };
   }
