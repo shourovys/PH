@@ -338,9 +338,9 @@
 
 **Goal**: Scaffold service module.
 
-- [ ] Create `src/features/services-definition/` structure (same pattern as staff)
-- [ ] Register routes
-- [ ] **Verify**: Route `/services` accessible
+- [x] Create `src/features/services-definition/` structure (same pattern as staff)
+- [x] Register routes
+- [x] **Verify**: Route `/services` accessible
 
 ---
 

@@ -2,6 +2,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { AUTH_ROUTES } from '@/features/auth';
 import { DASHBOARD_LINKS, DASHBOARD_ROUTES } from '@/features/dashboard';
 import { DEMO_ROUTES } from '@/features/demo';
+import { SERVICES_DEFINITION_ROUTES } from '@/features/services-definition';
 import { STAFF_ROUTES } from '@/features/staff';
 import type { RouteConfig } from '@/types/route.types';
 
@@ -12,7 +13,13 @@ export const routes: RouteConfig[] = [
     isLayout: true,
     path: DASHBOARD_LINKS.DASHBOARD,
     auth: 'authenticated',
-    children: [...AUTH_ROUTES, ...DEMO_ROUTES, ...DASHBOARD_ROUTES, ...STAFF_ROUTES],
+    children: [
+      ...AUTH_ROUTES,
+      ...DEMO_ROUTES,
+      ...DASHBOARD_ROUTES,
+      ...STAFF_ROUTES,
+      ...SERVICES_DEFINITION_ROUTES,
+    ],
   },
 ];
 
