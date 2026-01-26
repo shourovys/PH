@@ -271,13 +271,13 @@
 
 **Goal**: User registration flow.
 
-- [ ] Create `src/features/auth/pages/SignupPage.tsx`
-- [ ] Create `src/features/auth/components/SignupForm.tsx`:
+- [x] Create `src/features/auth/pages/SignupPage.tsx`
+- [x] Create `src/features/auth/components/SignupForm.tsx`:
   - Fields: Name, Email, Password, Confirm Password
   - Validation with Zod
-- [ ] Add route `/signup` with `auth: 'guest'`
-- [ ] Add "Sign up" link on Login page
-- [ ] **Verify**: Register new user → auto-login → Dashboard
+- [x] Add route `/signup` with `auth: 'guest'`
+- [x] Add "Sign up" link on Login page
+- [x] **Verify**: Register new user → auto-login → Dashboard
 
 ---
 

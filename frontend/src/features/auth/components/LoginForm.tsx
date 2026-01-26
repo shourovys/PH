@@ -1,4 +1,5 @@
 import { useState, type ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 import { useAuth } from '../hooks/use-auth';
+import { AUTH_LINKS } from '../routes/auth.routes';
 
 /**
  * Login form component
@@ -86,6 +88,12 @@ export function LoginForm(): ReactElement {
           </Button>
         </CardFooter>
       </form>
+      <div className=" text-center text-sm">
+        Don't have an account?{' '}
+        <Link to={AUTH_LINKS.SIGNUP} className="underline">
+          Sign up
+        </Link>
+      </div>
     </Card>
   );
 }
