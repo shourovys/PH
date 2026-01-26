@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -8,10 +10,28 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import { StaffFormDialog } from '../components/StaffFormDialog';
 import { useStaff } from '../hooks/use-staff';
+import type { Staff } from '../staff.types';
 
 function StaffListPage(): React.ReactElement {
-  const { staff, isLoading } = useStaff();
+  const { staff, isLoading, mutate } = useStaff();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingStaff, setEditingStaff] = useState<Staff | undefined>();
+
+  const handleAddStaff = (): void => {
+    setEditingStaff(undefined);
+    setDialogOpen(true);
+  };
+
+  const handleEditStaff = (staffMember: Staff): void => {
+    setEditingStaff(staffMember);
+    setDialogOpen(true);
+  };
+
+  const handleDialogSuccess = (): void => {
+    mutate();
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -21,7 +41,7 @@ function StaffListPage(): React.ReactElement {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Staff Management</h1>
-        <Button>Add Staff</Button>
+        <Button onClick={handleAddStaff}>Add Staff</Button>
       </div>
 
       {staff.length === 0 ? (
@@ -50,7 +70,12 @@ function StaffListPage(): React.ReactElement {
                 <TableCell>{member.dailyCapacity}</TableCell>
                 <TableCell>{member.availabilityStatus}</TableCell>
                 <TableCell>
-                  <Button variant="outline" size="sm" className="mr-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mr-2"
+                    onClick={() => handleEditStaff(member)}
+                  >
                     Edit
                   </Button>
                   <Button variant="outline" size="sm">
@@ -62,6 +87,13 @@ function StaffListPage(): React.ReactElement {
           </TableBody>
         </Table>
       )}
+
+      <StaffFormDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        staff={editingStaff}
+        onSuccess={handleDialogSuccess}
+      />
     </div>
   );
 }

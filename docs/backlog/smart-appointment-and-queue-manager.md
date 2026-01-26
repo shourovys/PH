@@ -321,12 +321,12 @@
 
 **Goal**: Form for staff management.
 
-- [ ] Create `src/features/staff/components/StaffFormDialog.tsx`:
+- [x] Create `src/features/staff/components/StaffFormDialog.tsx`:
   - Fields: Name, Service Type (dropdown), Daily Capacity (number), Availability Status (switch/select)
   - Zod validation
   - Create vs Edit mode
-- [ ] On submit → call API → refresh list → close dialog → show toast
-- [ ] **Verify**: Create staff → appears in list; Edit staff → changes reflected
+- [x] On submit → call API → refresh list → close dialog → show toast
+- [x] **Verify**: Create staff → appears in list; Edit staff → changes reflected
 
 ---
 

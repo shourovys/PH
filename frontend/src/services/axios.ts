@@ -20,6 +20,12 @@ axiosInstance.interceptors.request.use(
     const requestId = crypto.randomUUID();
     config.headers['X-Request-ID'] = requestId;
 
+    // Add authorization token if available
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     logger.debug('API Request', {
       method: config.method?.toUpperCase(),
       url: config.url,
