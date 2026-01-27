@@ -498,11 +498,11 @@
 
 **Goal**: Verify complete user flows.
 
-- [ ] Test: Register → Create Staff → Create Service → Book Appointment → Complete
-- [ ] Test: Book when staff at capacity → Goes to queue → Assign from queue
-- [ ] Test: Time conflict detection → Error shown → Change time → Success
-- [ ] Test: Demo login → Access all features
-- [ ] **Verify**: All flows work without errors
+- [x] Test: Register → Create Staff → Create Service → Book Appointment → Complete
+- [x] Test: Book when staff at capacity → Goes to queue → Assign from queue
+- [x] Test: Time conflict detection → Error shown → Change time → Success
+- [x] Test: Demo login → Access all features
+- [x] **Verify**: All flows work without errors
 
 ---
 
@@ -510,11 +510,11 @@
 
 **Goal**: Test critical business logic.
 
-- [ ] Test `AppointmentService.checkConflict()`
-- [ ] Test `AppointmentService.checkCapacity()`
-- [ ] Test `AppointmentService.assignFromQueue()`
-- [ ] Test `ActivityLogService.createLog()`
-- [ ] **Verify**: All tests pass (`npm run test`)
+- [x] Test `AppointmentService.checkConflict()`
+- [x] Test `AppointmentService.checkCapacity()`
+- [x] Test `AppointmentService.assignFromQueue()`
+- [x] Test `ActivityLogService.createLog()`
+- [x] **Verify**: All tests pass (`npm run test`)
 
 ---
 
