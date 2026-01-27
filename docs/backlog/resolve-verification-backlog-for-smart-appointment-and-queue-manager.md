@@ -168,17 +168,17 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 6.2: Verify Frontend Integration
 
-- [ ] Start frontend server
+- [x] Start frontend server
   - Run `cd frontend && npm run dev`
-- [ ] Test login and registration flows
+- [x] Test login and registration flows
   - Access http://localhost:5173
   - Test login with valid/invalid credentials
   - Test demo login
   - Test signup
-- [ ] Test CRUD operations in UI
+- [x] Test CRUD operations in UI
   - Navigate to staff, services, appointments pages
   - Perform create, read, update, delete operations
-- [ ] Test queue management
+- [x] Test queue management
   - Create appointments at capacity
   - Verify queue display and assignment
 
