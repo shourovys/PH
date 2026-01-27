@@ -52,9 +52,9 @@ All sprint backlog items are marked as completed. Verification focuses on confir
       Result: 2026-01-27 13:31:00 Failed - Backend server not responding on port 3000 (connection failed), frontend running on http://localhost:5173 but backend unavailable.
 
 - [ ] API Contracts Verification
-      Command: Visit `http://localhost:3000/api/docs`, test sample requests
+      Command: Visit `http://localhost:3001/api/docs`, test sample requests
       Expected: Swagger UI loads, all endpoints documented and return expected responses
-      Result: 2026-01-27 13:31:00 Failed - Backend server not running, cannot access http://localhost:3000/api/docs.
+      Result: 2026-01-27 13:31:00 Failed - Backend server not running, cannot access http://localhost:3001/api/docs.
 
 - [x] Documentation Updates
       Command: Check `backend/README.md` and `frontend/README.md` for setup instructions
@@ -75,48 +75,48 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 #### Story 1.2: Implement Auth Module (Backend)
 
 - [ ] Verify POST /auth/register
-      Command: `curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'`
+      Command: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'`
       Expected: 201 response with JWT token
       Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
 
 - [ ] Verify POST /auth/login
-      Command: `curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'`
+      Command: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'`
       Expected: 200 response with JWT token
       Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
 
 - [ ] Verify GET /auth/me
-      Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/auth/me`
+      Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/auth/me`
       Expected: 200 response with user object
       Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
 
 #### Story 1.3: Implement Staff CRUD API (Backend)
 
 - [ ] Verify create staff  
-       Command: `curl -X POST http://localhost:3000/staff -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Staff","serviceType":"General","dailyCapacity":5,"availabilityStatus":"Available"}'`  
+       Command: `curl -X POST http://localhost:3001/api/staff -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Staff","serviceType":"General","dailyCapacity":5,"availabilityStatus":"Available"}'`  
        Expected: 201 response
 
 - [ ] Verify list staff  
-       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/staff`  
+       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/staff`  
        Expected: 200 response with array of staff scoped to user
 
 - [ ] Verify update staff  
-       Command: `curl -X PUT http://localhost:3000/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Updated Staff"}'`  
+       Command: `curl -X PUT http://localhost:3001/api/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Updated Staff"}'`  
        Expected: 200 response, changes reflected
 
 - [ ] Verify delete staff  
-       Command: `curl -X DELETE http://localhost:3000/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>"`  
+       Command: `curl -X DELETE http://localhost:3001/api/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>"`  
        Expected: 204 response
 
 #### Story 1.4: Implement Service Definition API (Backend)
 
 - [ ] Verify service CRUD operations  
-       Command: Create: `curl -X POST http://localhost:3000/services-definition -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Service","duration":30,"requiredStaffType":"General"}'`; List: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/services-definition`; Update/Delete similarly  
+       Command: Create: `curl -X POST http://localhost:3001/api/services-definition -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Service","duration":30,"requiredStaffType":"General"}'`; List: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/services-definition`; Update/Delete similarly  
        Expected: Create returns 201, list returns array, update/delete work
 
 #### Story 1.5: Implement Appointment CRUD API (Backend)
 
 - [ ] Verify create appointment with capacity  
-       Command: `curl -X POST http://localhost:3000/appointments -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"customerName":"John Doe","serviceId":"<SERVICE_ID>","staffId":"<STAFF_ID>","appointmentDate":"2024-01-01","appointmentTime":"10:00"}'`  
+       Command: `curl -X POST http://localhost:3001/api/appointments -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"customerName":"John Doe","serviceId":"<SERVICE_ID>","staffId":"<STAFF_ID>","appointmentDate":"2024-01-01","appointmentTime":"10:00"}'`  
        Expected: 201 success if staff has capacity
 
 - [ ] Verify create conflicting appointment  
@@ -130,23 +130,23 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 #### Story 1.6: Implement Waiting Queue API (Backend)
 
 - [ ] Verify queue list  
-       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/appointments/queue`  
+       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/appointments/queue`  
        Expected: 200 response with Waiting appointments in order
 
 - [ ] Verify assign from queue  
-       Command: `curl -X POST http://localhost:3000/appointments/queue/assign/<STAFF_ID> -H "Authorization: Bearer <JWT_TOKEN>"`  
+       Command: `curl -X POST http://localhost:3001/api/appointments/queue/assign/<STAFF_ID> -H "Authorization: Bearer <JWT_TOKEN>"`  
        Expected: Appointment status changes to Scheduled
 
 #### Story 1.7: Implement Activity Log API (Backend)
 
 - [ ] Verify activity log creation  
-       Command: Assign from queue, then `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/activity-logs`  
+       Command: Assign from queue, then `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/activity-logs`  
        Expected: Log created, GET returns latest 10
 
 #### Story 1.8: Implement Dashboard Stats API (Backend)
 
 - [ ] Verify dashboard stats  
-       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/dashboard/stats`  
+       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/dashboard/stats`  
        Expected: 200 response with correct counts
 
 - [ ] Verify staff load  
@@ -355,9 +355,9 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify POST /auth/register - Command: `curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'` - Error: Failed to connect to localhost port 3000
-- Verify POST /auth/login - Command: `curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'` - Error: Failed to connect to localhost port 3000
-- Verify GET /auth/me - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/auth/me` - Error: Failed to connect to localhost port 3000
+- Verify POST /auth/register - Command: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'` - Error: Failed to connect to localhost port 3000
+- Verify POST /auth/login - Command: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'` - Error: Failed to connect to localhost port 3000
+- Verify GET /auth/me - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/auth/me` - Error: Failed to connect to localhost port 3000
 
 **Recommended Fix:** Fix MongoDB connection first (see Story 1.1). Ensure JWT_SECRET in .env.
 
@@ -373,10 +373,10 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify create staff - Command: `curl -X POST http://localhost:3000/staff -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Staff","serviceType":"General","dailyCapacity":5,"availabilityStatus":"Available"}'` - Error: Connection failed
-- Verify list staff - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/staff` - Error: Connection failed
-- Verify update staff - Command: `curl -X PUT http://localhost:3000/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Updated Staff"}'` - Error: Connection failed
-- Verify delete staff - Command: `curl -X DELETE http://localhost:3000/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>"` - Error: Connection failed
+- Verify create staff - Command: `curl -X POST http://localhost:3001/api/staff -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Staff","serviceType":"General","dailyCapacity":5,"availabilityStatus":"Available"}'` - Error: Connection failed
+- Verify list staff - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/staff` - Error: Connection failed
+- Verify update staff - Command: `curl -X PUT http://localhost:3001/api/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Updated Staff"}'` - Error: Connection failed
+- Verify delete staff - Command: `curl -X DELETE http://localhost:3001/api/staff/<ID> -H "Authorization: Bearer <JWT_TOKEN>"` - Error: Connection failed
 
 **Recommended Fix:** Fix backend startup (MongoDB).
 
@@ -392,7 +392,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify service CRUD operations - Command: Create: `curl -X POST http://localhost:3000/services-definition -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Service","duration":30,"requiredStaffType":"General"}'` etc. - Error: Connection failed
+- Verify service CRUD operations - Command: Create: `curl -X POST http://localhost:3001/api/services-definition -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"name":"Test Service","duration":30,"requiredStaffType":"General"}'` etc. - Error: Connection failed
 
 **Recommended Fix:** Fix backend.
 
@@ -408,7 +408,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify create appointment with capacity - Command: `curl -X POST http://localhost:3000/appointments -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"customerName":"John Doe","serviceId":"<SERVICE_ID>","staffId":"<STAFF_ID>","appointmentDate":"2024-01-01","appointmentTime":"10:00"}'` - Error: Connection failed
+- Verify create appointment with capacity - Command: `curl -X POST http://localhost:3001/api/appointments -H "Authorization: Bearer <JWT_TOKEN>" -H "Content-Type: application/json" -d '{"customerName":"John Doe","serviceId":"<SERVICE_ID>","staffId":"<STAFF_ID>","appointmentDate":"2024-01-01","appointmentTime":"10:00"}'` - Error: Connection failed
 - Verify create conflicting appointment - Error: Connection failed
 - Verify create appointment at capacity - Error: Connection failed
 
@@ -426,8 +426,8 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify queue list - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/appointments/queue` - Error: Connection failed
-- Verify assign from queue - Command: `curl -X POST http://localhost:3000/appointments/queue/assign/<STAFF_ID> -H "Authorization: Bearer <JWT_TOKEN>"` - Error: Connection failed
+- Verify queue list - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/appointments/queue` - Error: Connection failed
+- Verify assign from queue - Command: `curl -X POST http://localhost:3001/api/appointments/queue/assign/<STAFF_ID> -H "Authorization: Bearer <JWT_TOKEN>"` - Error: Connection failed
 
 **Recommended Fix:** Fix backend.
 
@@ -443,7 +443,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify activity log creation - Command: Assign from queue, then `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/activity-logs` - Error: Connection failed
+- Verify activity log creation - Command: Assign from queue, then `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/activity-logs` - Error: Connection failed
 
 **Recommended Fix:** Fix backend.
 
@@ -459,7 +459,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify dashboard stats - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3000/dashboard/stats` - Error: Connection failed
+- Verify dashboard stats - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/dashboard/stats` - Error: Connection failed
 - Verify staff load - Error: Connection failed
 
 **Recommended Fix:** Fix backend.

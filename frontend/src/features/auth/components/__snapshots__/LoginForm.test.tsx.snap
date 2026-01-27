@@ -69,7 +69,7 @@ exports[`LoginForm > matches snapshot 1`] = `
       </div>
     </div>
     <div
-      class="flex items-center px-6 [.border-t]:pt-6"
+      class="items-center px-6 [.border-t]:pt-6 flex flex-col space-y-2 mt-4"
       data-slot="card-footer"
     >
       <button
@@ -78,7 +78,29 @@ exports[`LoginForm > matches snapshot 1`] = `
       >
         Login
       </button>
+      <p>
+        or
+      </p>
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 w-full"
+        type="button"
+      >
+        Demo Login
+      </button>
     </div>
   </form>
+  <div
+    class=" text-center text-sm"
+  >
+    Don't have an account?
+     
+    <a
+      class="underline"
+      data-discover="true"
+      href="/signup"
+    >
+      Sign up
+    </a>
+  </div>
 </div>
 `;

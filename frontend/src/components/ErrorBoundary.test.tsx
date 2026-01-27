@@ -29,6 +29,7 @@ function ErrorThrowingComponent({
 describe('ErrorBoundary', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   it('renders children when no error occurs', () => {

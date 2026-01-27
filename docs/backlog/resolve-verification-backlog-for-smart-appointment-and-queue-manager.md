@@ -18,7 +18,7 @@ The verification revealed critical infrastructure issues preventing the applicat
 - [x] Verify backend .env configuration
   - Confirm MONGODB_URI=mongodb://localhost:27017/smart-appointment
   - Confirm PORT=3001 in .env
-- [ ] Update verification scripts to use correct port (3001 instead of 3000)
+- [x] Update verification scripts to use correct port (3001 instead of 3000)
   - Update all curl commands in verification to use localhost:3001
 - [x] Test backend startup
   - Run `cd backend && npm run start:dev`
