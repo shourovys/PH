@@ -21,6 +21,12 @@ export class AppointmentsService {
   async create(createAppointmentDto: CreateAppointmentDto, userId: string): Promise<Appointment> {
     const { serviceId, staffId, appointmentDate, appointmentTime } = createAppointmentDto;
 
+    // Validate appointment is in the future
+    const appointmentDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+    if (appointmentDateTime <= new Date()) {
+      throw new BadRequestException('Appointment date and time must be in the future');
+    }
+
     // Validate service exists
     const service = await this.servicesDefinitionService.findOne(serviceId, userId);
     if (!service) {
@@ -116,6 +122,14 @@ export class AppointmentsService {
         : existingAppointment.appointmentDate;
       const time = updateAppointmentDto.appointmentTime || existingAppointment.appointmentTime;
       const staffId = updateAppointmentDto.staffId || existingAppointment.staffId?.toString();
+
+      // Validate updated appointment is in the future
+      const newDateTime = new Date(date);
+      const [hours, minutes] = time.split(':').map(Number);
+      newDateTime.setHours(hours, minutes, 0, 0);
+      if (newDateTime <= new Date()) {
+        throw new BadRequestException('Updated appointment date and time must be in the future');
+      }
 
       if (staffId) {
         const conflict = await this.checkConflict(staffId, date, time);

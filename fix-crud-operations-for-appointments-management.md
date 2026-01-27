@@ -27,12 +27,12 @@
 
 ### Backend Validation: Prevent Past Appointments
 
-- [ ] Add validation in `create` method to check if `appointmentDate` and `appointmentTime` are in the future
-- [ ] Add validation in `update` method to check if updated date/time are in the future
-- [ ] Throw `BadRequestException` with appropriate message for past appointments
-- [ ] Update DTOs if needed to include validation
-- [ ] Test creating past appointment fails
-- [ ] Test updating to past time fails
+- [x] Add validation in `create` method to check if `appointmentDate` and `appointmentTime` are in the future
+- [x] Add validation in `update` method to check if updated date/time are in the future
+- [x] Throw `BadRequestException` with appropriate message for past appointments
+- [x] Update DTOs if needed to include validation
+- [x] Test creating past appointment fails
+- [x] Test updating to past time fails
 
 ### Frontend API Alignment: Fix Update Method
 
