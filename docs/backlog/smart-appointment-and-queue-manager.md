@@ -450,15 +450,15 @@
 
 **Goal**: Display daily summary.
 
-- [ ] Redesign `DashboardPage.tsx`:
+- [x] Redesign `DashboardPage.tsx`:
   - 4 stat cards:
     - Total Appointments Today
     - Completed
     - Pending
     - Waiting Queue Count
   - Use `Card` component with icons
-- [ ] Fetch stats from `GET /dashboard/stats`
-- [ ] **Verify**: Stats show correct numbers
+- [x] Fetch stats from `GET /dashboard/stats`
+- [x] **Verify**: Stats show correct numbers
 
 ---
 
