@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
   Body,
   Controller,
@@ -81,17 +80,20 @@ export class AppointmentsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
+  async remove(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ): Promise<Appointment> {
     const userId = req.user._id.toString();
     return this.appointmentsService.remove(id, userId);
   }
 
   @Patch(':id/status')
-  updateStatus(
+  async updateStatus(
     @Param('id') id: string,
     @Body('status') status: AppointmentStatus,
     @Request() req: AuthenticatedRequest,
-  ) {
+  ): Promise<Appointment> {
     const userId = req.user._id.toString();
     return this.appointmentsService.updateStatus(id, status, userId);
   }

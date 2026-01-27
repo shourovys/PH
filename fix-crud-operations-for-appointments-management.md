@@ -50,10 +50,10 @@
 
 ### Code Quality: Fix Linting Issues
 
-- [ ] Remove `/* eslint-disable @typescript-eslint/explicit-function-return-type */` from controller
-- [ ] Add explicit return types to all controller methods
-- [ ] Run linter and fix any other issues
-- [ ] Ensure build passes without warnings
+- [x] Remove `/* eslint-disable @typescript-eslint/explicit-function-return-type */` from controller
+- [x] Add explicit return types to all controller methods
+- [x] Run linter and fix any other issues
+- [x] Ensure build passes without warnings
 
 ### Type Safety: Improve Type Definitions
 
