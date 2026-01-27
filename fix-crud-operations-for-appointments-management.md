@@ -36,9 +36,9 @@
 
 ### Frontend API Alignment: Fix Update Method
 
-- [ ] Change `updateAppointment` in `appointments.service.ts` to use `apiClient.patch` instead of `put`
-- [ ] Update any related error handling if needed
-- [ ] Test appointment update works correctly
+- [x] Change `updateAppointment` in `appointments.service.ts` to use `apiClient.patch` instead of `put`
+- [x] Update any related error handling if needed
+- [x] Test appointment update works correctly
 
 ### Frontend Refactor: Remove Redundant UserId Queries
 

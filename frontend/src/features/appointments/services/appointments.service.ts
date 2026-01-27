@@ -43,7 +43,7 @@ export const appointmentsService = {
    * Update an appointment
    */
   updateAppointment: async (id: string, data: UpdateAppointmentRequest): Promise<Appointment> => {
-    const response = await apiClient.put<Appointment>(`/appointments/${id}`, data);
+    const response = await apiClient.patch<Appointment>(`/appointments/${id}`, data);
     return response.data.data;
   },
 
