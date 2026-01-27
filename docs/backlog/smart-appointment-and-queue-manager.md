@@ -481,12 +481,12 @@
 
 **Goal**: Display recent actions.
 
-- [ ] Add Activity Log section to dashboard:
+- [x] Add Activity Log section to dashboard:
   - List last 5-10 logs
   - Format: `HH:MM AM/PM — Description`
   - Example: `11:45 AM — Appointment for "John Doe" auto-assigned to Riya.`
-- [ ] Fetch from `GET /activity-logs`
-- [ ] **Verify**: Logs display correctly
+- [x] Fetch from `GET /activity-logs`
+- [x] **Verify**: Logs display correctly
 
 ---
 

@@ -1,14 +1,16 @@
+import { format } from 'date-fns';
 import { Calendar, CheckCircle, Clock, Users } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-import { useDashboardStats, useStaffLoad } from '../hooks/use-dashboard';
+import { useActivityLogs, useDashboardStats, useStaffLoad } from '../hooks/use-dashboard';
 
 function DashboardPage() {
   const { stats, isLoading: statsLoading } = useDashboardStats();
   const { staffLoad, isLoading: staffLoading } = useStaffLoad();
+  const { activityLogs, isLoading: logsLoading } = useActivityLogs();
 
   if (statsLoading) {
     return (
@@ -123,6 +125,25 @@ function DashboardPage() {
                 </div>
               );
             })}
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Recent Activity</h2>
+        {logsLoading ? (
+          <div className="space-y-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-6 w-full" />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {activityLogs.slice(0, 10).map((log) => (
+              <div key={log.id} className="text-sm text-muted-foreground">
+                {format(new Date(log.timestamp), 'hh:mm a')} — {log.description}
+              </div>
+            ))}
           </div>
         )}
       </div>

@@ -15,6 +15,16 @@ export interface StaffLoad {
   status: 'Available' | 'On Leave';
 }
 
+export interface ActivityLog {
+  id: string;
+  action: string;
+  description: string;
+  appointmentId: string;
+  staffId: string;
+  timestamp: string;
+  userId: string;
+}
+
 /**
  * Dashboard service for API calls
  */
@@ -32,6 +42,14 @@ export const dashboardService = {
    */
   getStaffLoad: async (): Promise<StaffLoad[]> => {
     const response = await apiClient.get<StaffLoad[]>('/dashboard/staff-load');
+    return response.data.data;
+  },
+
+  /**
+   * Get activity logs
+   */
+  getActivityLogs: async (): Promise<ActivityLog[]> => {
+    const response = await apiClient.get<ActivityLog[]>('/activity-logs');
     return response.data.data;
   },
 };

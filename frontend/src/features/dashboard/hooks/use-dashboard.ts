@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import type { DashboardStats, StaffLoad } from '../services/dashboard.service';
+import type { ActivityLog, DashboardStats, StaffLoad } from '../services/dashboard.service';
 import { dashboardService } from '../services/dashboard.service';
 
 /**
@@ -44,6 +44,29 @@ export function useStaffLoad(): {
 
   return {
     staffLoad: data || [],
+    isLoading,
+    error,
+  };
+}
+
+/**
+ * Hook for fetching activity logs
+ */
+export function useActivityLogs(): {
+  activityLogs: ActivityLog[];
+  isLoading: boolean;
+  error: unknown;
+} {
+  const { data, error, isLoading } = useSWR<ActivityLog[]>(
+    '/activity-logs',
+    dashboardService.getActivityLogs,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
+  return {
+    activityLogs: data || [],
     isLoading,
     error,
   };
