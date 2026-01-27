@@ -3,11 +3,11 @@ export interface Appointment {
   _id?: string;
   customerName: string;
   serviceId: string;
-  staffId: string | null;
+  staffId?: string;
   appointmentDate: string; // ISO date string
   appointmentTime: string; // HH:MM format
   status: 'Scheduled' | 'Completed' | 'Cancelled' | 'No-Show' | 'Waiting';
-  queuePosition: number | null;
+  queuePosition?: number;
   userId: string;
   createdAt: string;
   updatedAt: string;
@@ -16,7 +16,7 @@ export interface Appointment {
 export interface CreateAppointmentRequest {
   customerName: string;
   serviceId: string;
-  staffId?: string | null;
+  staffId?: string;
   appointmentDate: string;
   appointmentTime: string;
 }

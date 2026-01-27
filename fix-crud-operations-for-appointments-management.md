@@ -57,9 +57,9 @@
 
 ### Type Safety: Improve Type Definitions
 
-- [ ] Change `staffId` in types to optional properly (e.g., `staffId?: string`)
-- [ ] Ensure consistency between frontend types and backend schemas
-- [ ] Update any related interfaces
+- [x] Change `staffId` in types to optional properly (e.g., `staffId?: string`)
+- [x] Ensure consistency between frontend types and backend schemas
+- [x] Update any related interfaces
 
 ### Error Management: Enhance Error Handling
 
