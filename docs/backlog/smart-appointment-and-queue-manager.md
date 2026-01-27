@@ -522,11 +522,11 @@
 
 **Goal**: Test critical UI interactions.
 
-- [ ] Test `AppointmentFormDialog` validation
-- [ ] Test `StaffFormDialog` submit
-- [ ] Test `QueueAssignDialog` flow
-- [ ] Test auth guards redirect correctly
-- [ ] **Verify**: All tests pass (`npm run test:run`)
+- [x] Test `AppointmentFormDialog` validation
+- [x] Test `StaffFormDialog` submit
+- [x] Test `QueueAssignDialog` flow
+- [x] Test auth guards redirect correctly
+- [x] **Verify**: All tests pass (`npm run test:run`)
 
 ---
 
