@@ -33,8 +33,10 @@ export const dashboardService = {
    * Get dashboard stats
    */
   getStats: async (): Promise<DashboardStats> => {
-    const response = await apiClient.get<DashboardStats>('/dashboard/stats');
-    return response.data.data;
+    const response = await apiClient.get<{ todayStats: DashboardStats; staffLoad: StaffLoad[] }>(
+      '/dashboard/stats'
+    );
+    return response.data.data.todayStats;
   },
 
   /**

@@ -93,6 +93,11 @@ function DashboardPage() {
               <Skeleton key={i} className="h-8 w-full" />
             ))}
           </div>
+        ) : staffLoad.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <Users className="mx-auto h-12 w-12 mb-4 opacity-50" />
+            <p>No staff members found</p>
+          </div>
         ) : (
           <div className="space-y-2">
             {staffLoad.map((staff) => {
@@ -136,6 +141,11 @@ function DashboardPage() {
             {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-6 w-full" />
             ))}
+          </div>
+        ) : activityLogs.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <Calendar className="mx-auto h-12 w-12 mb-4 opacity-50" />
+            <p>No recent activity</p>
           </div>
         ) : (
           <div className="space-y-2">

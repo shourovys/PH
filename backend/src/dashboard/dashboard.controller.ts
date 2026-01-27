@@ -30,4 +30,10 @@ export class DashboardController {
       staffLoad,
     };
   }
+
+  @Get('staff-load')
+  async getStaffLoad(@Request() req: AuthenticatedRequest): Promise<StaffLoad[]> {
+    const userId = req.user._id.toString();
+    return this.dashboardService.getStaffLoad(userId);
+  }
 }
