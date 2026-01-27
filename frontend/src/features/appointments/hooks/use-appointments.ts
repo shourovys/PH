@@ -18,9 +18,7 @@ export function useAppointments(filters?: { date?: string; staffId?: string; sta
   ) => Promise<Appointment[] | undefined>;
 } {
   const user = useAuthStore(authSelectors.user);
-  const key = filters
-    ? ['/appointments', { ...filters, userId: user?.id }]
-    : ['/appointments', { userId: user?.id }];
+  const key = filters ? ['/appointments', { ...filters, userId: user?.id }] : null;
 
   const { data, error, isLoading, mutate } = useSWR<Appointment[]>(
     key,

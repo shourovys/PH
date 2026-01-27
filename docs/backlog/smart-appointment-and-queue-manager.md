@@ -404,9 +404,9 @@
     - API returns conflict → show error Alert with options
     - API returns success → refresh + toast
 - [x] **Verify**:
-  - [ ] Select staff → see capacity
-  - [ ] Book at capacity → warning shown
-  - [ ] Time conflict → error + options (pick another staff, change time)
+  - [x] Select staff → see capacity
+  - [x] Book at capacity → warning shown
+  - [x] Time conflict → error + options (pick another staff, change time)
 
 ---
 

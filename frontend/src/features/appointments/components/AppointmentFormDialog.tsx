@@ -1,7 +1,8 @@
-import { useEffect, useState, type ReactElement } from 'react';
+import { useEffect, useMemo, useState, type ReactElement } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,6 +29,7 @@ import type {
   CreateAppointmentRequest,
   UpdateAppointmentRequest,
 } from '../appointments.types';
+import { useAppointments } from '../hooks/use-appointments';
 import { appointmentsService } from '../services/appointments.service';
 
 const appointmentSchema = z.object({
@@ -63,6 +65,7 @@ export function AppointmentFormDialog({
     appointmentTime: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showConflictAlert, setShowConflictAlert] = useState(false);
 
   const { services } = useServicesDefinition();
   const { staff } = useStaff();
@@ -86,12 +89,25 @@ export function AppointmentFormDialog({
       });
     }
     setErrors({});
+    setShowConflictAlert(false);
   }, [appointment, open]);
 
   const selectedService = services.find((s) => s._id === formData.serviceId);
   const availableStaff = staff.filter(
     (s) => !selectedService || s.serviceType === selectedService.requiredStaffType
   );
+
+  const dateFilters = formData.appointmentDate ? { date: formData.appointmentDate } : undefined;
+  const { appointments: dateAppointments } = useAppointments(dateFilters);
+  const staffCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    dateAppointments.forEach((app) => {
+      if (app.staffId && app.status !== 'Cancelled' && app.status !== 'No-Show') {
+        counts[app.staffId] = (counts[app.staffId] || 0) + 1;
+      }
+    });
+    return counts;
+  }, [dateAppointments]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -131,7 +147,7 @@ export function AppointmentFormDialog({
         'status' in error.response &&
         error.response.status === 409
       ) {
-        toast.error('Time conflict detected. Please choose a different time or staff.');
+        setShowConflictAlert(true);
       } else {
         toast.error(isEdit ? 'Failed to update appointment' : 'Failed to create appointment');
       }
@@ -209,15 +225,20 @@ export function AppointmentFormDialog({
                   onValueChange={(value) => handleChange('staffId', value)}
                   disabled={isLoading || !formData.serviceId}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="staffId">
                     <SelectValue placeholder="Select staff" />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableStaff.map((staffMember) => (
-                      <SelectItem key={staffMember._id} value={staffMember._id}>
-                        {staffMember.name} ({staffMember.serviceType})
-                      </SelectItem>
-                    ))}
+                    {availableStaff.map((staffMember) => {
+                      const count = staffCounts[staffMember._id] || 0;
+                      const isAtCapacity = count >= staffMember.dailyCapacity;
+                      const display = `${staffMember.name} (${count}/${staffMember.dailyCapacity} appointments today)${isAtCapacity ? ' ⚠️' : ''}`;
+                      return (
+                        <SelectItem key={staffMember._id} value={staffMember._id}>
+                          {display}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </div>
@@ -252,6 +273,35 @@ export function AppointmentFormDialog({
                 )}
               </div>
             </div>
+            {showConflictAlert && (
+              <Alert variant="destructive">
+                <AlertDescription>
+                  Time conflict detected. Please choose a different time or staff.
+                  <div className="mt-2 flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setShowConflictAlert(false);
+                        document.getElementById('appointmentTime')?.focus();
+                      }}
+                    >
+                      Change Time
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setShowConflictAlert(false);
+                        document.getElementById('staffId')?.scrollIntoView();
+                      }}
+                    >
+                      Pick Another Staff
+                    </Button>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
           <DialogFooter>
             <Button
