@@ -104,11 +104,11 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 4.1: Fix LoginForm Test Issues
 
-- [ ] Update test queries to be more specific
+- [x] Update test queries to be more specific
   - In LoginForm.test.tsx, change getByRole('button', { name: /login/i }) to distinguish between buttons
   - Use getByRole('button', { name: 'Login' }) for submit button
   - Use getByRole('button', { name: 'Demo Login' }) for demo button
-- [ ] Update snapshot
+- [x] Update snapshot
   - Run `cd frontend && npm run test:run -- -u` to update snapshot
   - Verify snapshot matches current component
 
