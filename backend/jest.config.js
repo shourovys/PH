@@ -1,6 +1,12 @@
 module.exports = {
   preset: '@nestjs/jest',
   testEnvironment: 'node',
+  extensionsToTreatAsEsm: ['.ts'],
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },

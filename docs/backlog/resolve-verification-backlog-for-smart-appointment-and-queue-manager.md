@@ -27,18 +27,18 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 1.2: Resolve ES Module and TypeScript Compilation Issues
 
-- [ ] Fix import paths for ES modules
+- [x] Fix import paths for ES modules
   - Remove .js extensions from import statements in backend/src/main.ts and other files
   - Update import { AppModule } from './app.module' (remove .js)
   - Update other imports similarly
-- [ ] Configure Jest for ES modules
+- [x] Configure Jest for ES modules
   - Update jest.config.js to handle ES modules properly
   - Add "extensionsToTreatAsEsm": [".ts"] and "globals": { "ts-jest": { "useESM": true } }
   - Or consolidate to single Jest config in package.json
-- [ ] Fix TypeScript compilation errors
+- [x] Fix TypeScript compilation errors
   - Resolve module not found errors for app.controller, app.service, supertest/types
   - Ensure all imports are correct without .js extensions
-- [ ] Run TSC check
+- [x] Run TSC check
   - Execute `cd backend && npx tsc --noEmit`
   - Verify no errors
 
