@@ -154,16 +154,16 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 6.1: Verify Backend API Endpoints
 
-- [ ] Start backend server
+- [x] Start backend server
   - Ensure MongoDB is running
   - Run `cd backend && npm run start:dev`
-- [ ] Test auth endpoints
+- [x] Test auth endpoints
   - Register: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'`
   - Login: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'`
   - Me: `curl -H "Authorization: Bearer <TOKEN>" http://localhost:3001/api/auth/me`
-- [ ] Test CRUD endpoints for staff, services, appointments
+- [x] Test CRUD endpoints for staff, services, appointments
   - Follow the curl commands from original verification, updated for port 3001 and /api prefix
-- [ ] Test queue and dashboard endpoints
+- [x] Test queue and dashboard endpoints
   - Verify queue management and stats APIs work
 
 ### Story 6.2: Verify Frontend Integration
