@@ -184,10 +184,10 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 6.3: Run Manual Smoke Tests
 
-- [ ] Perform complete e2e flow
+- [x] Perform complete e2e flow
   - Register → Create Staff → Create Service → Book Appointment → Complete
   - Book at capacity → Queue → Assign
-- [ ] Verify Swagger UI
+- [x] Verify Swagger UI
   - Access http://localhost:3001/api/docs
   - Test sample requests
 

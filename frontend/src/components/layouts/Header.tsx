@@ -3,7 +3,7 @@ import { LogOut, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/features/auth';
 
-export default function Header(): JSX.Element {
+export default function Header() {
   const { user, logout } = useAuth();
 
   return (
