@@ -466,14 +466,14 @@
 
 **Goal**: Display staff workload.
 
-- [ ] Add Staff Load section to dashboard:
+- [x] Add Staff Load section to dashboard:
   - List each staff: `Name — X / Y (status badge)`
   - Status badge colors:
     - Green: OK (under capacity)
     - Yellow: Near capacity (1 slot left)
     - Red: Booked (at capacity)
     - Gray: On Leave
-- [ ] **Verify**: Load shows correctly, colors match capacity
+- [x] **Verify**: Load shows correctly, colors match capacity
 
 ---
 

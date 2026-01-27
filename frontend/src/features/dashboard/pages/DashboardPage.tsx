@@ -1,14 +1,16 @@
 import { Calendar, CheckCircle, Clock, Users } from 'lucide-react';
 
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-import { useDashboardStats } from '../hooks/use-dashboard';
+import { useDashboardStats, useStaffLoad } from '../hooks/use-dashboard';
 
 function DashboardPage() {
-  const { stats, isLoading } = useDashboardStats();
+  const { stats, isLoading: statsLoading } = useDashboardStats();
+  const { staffLoad, isLoading: staffLoading } = useStaffLoad();
 
-  if (isLoading) {
+  if (statsLoading) {
     return (
       <div className="space-y-6">
         <div>
@@ -79,6 +81,50 @@ function DashboardPage() {
             <div className="text-2xl font-bold">{stats?.waitingQueueCount || 0}</div>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Staff Load</h2>
+        {staffLoading ? (
+          <div className="space-y-2">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton key={i} className="h-8 w-full" />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {staffLoad.map((staff) => {
+              const getBadgeClass = () => {
+                if (staff.status === 'On Leave') return 'bg-gray-500';
+                if (staff.current >= staff.max) return 'bg-red-500';
+                if (staff.current >= staff.max - 1) return 'bg-yellow-500';
+                return 'bg-green-500';
+              };
+              return (
+                <div
+                  key={staff.staffId}
+                  className="flex items-center justify-between p-3 border rounded-lg"
+                >
+                  <span className="font-medium">{staff.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span>
+                      {staff.current} / {staff.max}
+                    </span>
+                    <Badge className={`${getBadgeClass()} text-white`}>
+                      {staff.status === 'On Leave'
+                        ? 'On Leave'
+                        : staff.current >= staff.max
+                          ? 'Booked'
+                          : staff.current >= staff.max - 1
+                            ? 'Near Capacity'
+                            : 'OK'}
+                    </Badge>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
