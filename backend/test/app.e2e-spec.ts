@@ -7,10 +7,8 @@ import { AppModule } from './../src/app.module.js';
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
   let authToken: string;
-  let userId: string;
   let staffId: string;
   let serviceId: string;
-  let appointmentId: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -39,7 +37,6 @@ describe('AppController (e2e)', () => {
 
       expect(registerResponse.body.data).toHaveProperty('token');
       authToken = registerResponse.body.data.token;
-      userId = registerResponse.body.data.user.id;
 
       // Login with registered user
       const loginResponse = await request(app.getHttpServer())
@@ -103,7 +100,6 @@ describe('AppController (e2e)', () => {
         })
         .expect(201);
 
-      appointmentId = appointmentResponse.body.data.id;
       expect(appointmentResponse.body.data.status).toBe('Scheduled');
     });
 

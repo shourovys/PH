@@ -18,13 +18,10 @@ export class DashboardController {
     todayStats: TodayStats;
     staffLoad: StaffLoad[];
   }> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const userId = req.user._id.toString();
 
     const [todayStats, staffLoad] = await Promise.all([
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.dashboardService.getTodayStats(userId),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.dashboardService.getStaffLoad(userId),
     ]);
 
