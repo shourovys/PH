@@ -203,10 +203,10 @@ Create a `.env.development` file in the root directory:
 ```env
 # Application
 NODE_ENV=development
-PORT=3000
+PORT=3001
 
 # Database
-MONGODB_URI=mongodb://localhost:27017/smart_appointment_db
+MONGODB_URI=mongodb://localhost:27017/smart-appointment
 
 # Security
 JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-secure
@@ -384,7 +384,7 @@ src/
 
 ### Swagger/OpenAPI
 
-- **Endpoint**: `http://localhost:3000/api/docs`
+- **Endpoint**: `http://localhost:3001/api/docs`
 - **Auto-generation**: From DTOs and controllers
 - **Authentication**: JWT token support in Swagger UI
 - **Features**: Interactive API testing, request/response examples
@@ -419,14 +419,14 @@ npm run start:prod
 livenessProbe:
   httpGet:
     path: /health/live
-    port: 3000
+    port: 3001
   initialDelaySeconds: 30
   periodSeconds: 10
 
 readinessProbe:
   httpGet:
     path: /health/ready
-    port: 3000
+    port: 3001
   initialDelaySeconds: 5
   periodSeconds: 5
 ```

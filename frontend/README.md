@@ -207,7 +207,7 @@ Required environment variables are validated at runtime using Zod:
 
 ```typescript
 // .env.example
-VITE_API_BASE_URL=http://localhost:3000/api
+VITE_API_BASE_URL=http://localhost:3001/api
 VITE_API_TIMEOUT=30000
 VITE_ENABLE_ANALYTICS=false
 VITE_ENABLE_SENTRY=false
