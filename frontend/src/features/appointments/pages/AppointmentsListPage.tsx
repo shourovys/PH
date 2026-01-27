@@ -27,6 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { authSelectors, useAuthStore } from '@/features/auth';
 
 import type { Appointment } from '../appointments.types';
 import { AppointmentFormDialog } from '../components/AppointmentFormDialog';
@@ -34,6 +35,7 @@ import { useAppointments } from '../hooks/use-appointments';
 import { appointmentsService } from '../services/appointments.service';
 
 function AppointmentsListPage(): React.ReactElement {
+  const user = useAuthStore(authSelectors.user);
   const [dateFilter, setDateFilter] = useState('');
   const [staffFilter, setStaffFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
@@ -41,6 +43,8 @@ function AppointmentsListPage(): React.ReactElement {
   const [editingAppointment, setEditingAppointment] = useState<Appointment | undefined>();
   const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
   const [cancelAppointment, setCancelAppointment] = useState<Appointment | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [appointmentToDelete, setAppointmentToDelete] = useState<Appointment | null>(null);
 
   const { appointments, isLoading, mutate } = useAppointments({
     date: dateFilter || undefined,
@@ -66,7 +70,12 @@ function AppointmentsListPage(): React.ReactElement {
     newStatus: Appointment['status']
   ): Promise<void> => {
     try {
-      await appointmentsService.updateAppointmentStatus(appointment.id, newStatus);
+      const appointmentId = appointment.id || appointment._id;
+      if (!appointmentId) {
+        toast.error('Appointment ID not found');
+        return;
+      }
+      await appointmentsService.updateAppointmentStatus(appointmentId, newStatus);
       toast.success(`Appointment status updated to ${newStatus}`);
       mutate();
     } catch {
@@ -80,7 +89,12 @@ function AppointmentsListPage(): React.ReactElement {
   const handleConfirmCancel = async (): Promise<void> => {
     if (!cancelAppointment) return;
     try {
-      await appointmentsService.updateAppointmentStatus(cancelAppointment.id, 'Cancelled');
+      const appointmentId = cancelAppointment.id || cancelAppointment._id;
+      if (!appointmentId) {
+        toast.error('Appointment ID not found');
+        return;
+      }
+      await appointmentsService.updateAppointmentStatus(appointmentId, 'Cancelled');
       toast.success('Appointment cancelled');
       mutate();
     } catch {
@@ -88,6 +102,31 @@ function AppointmentsListPage(): React.ReactElement {
     } finally {
       setConfirmCancelOpen(false);
       setCancelAppointment(null);
+    }
+  };
+
+  const handleDeleteAppointment = (appointment: Appointment): void => {
+    setAppointmentToDelete(appointment);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDeleteAppointment = async (): Promise<void> => {
+    if (!appointmentToDelete || !user) return;
+
+    try {
+      const appointmentId = appointmentToDelete.id || appointmentToDelete._id;
+      if (!appointmentId) {
+        toast.error('Appointment ID not found');
+        return;
+      }
+      await appointmentsService.deleteAppointment(appointmentId, user.id);
+      toast.success('Appointment deleted successfully');
+      mutate();
+      setDeleteConfirmOpen(false);
+      setAppointmentToDelete(null);
+    } catch (error) {
+      console.error('Failed to delete appointment:', error);
+      toast.error('Failed to delete appointment');
     }
   };
 
@@ -165,7 +204,7 @@ function AppointmentsListPage(): React.ReactElement {
           </TableHeader>
           <TableBody>
             {appointments.map((appointment) => (
-              <TableRow key={appointment.id}>
+              <TableRow key={appointment.id || appointment._id}>
                 <TableCell>{appointment.customerName}</TableCell>
                 <TableCell>{/* TODO: Service name */}</TableCell>
                 <TableCell>{/* TODO: Staff name */}</TableCell>
@@ -196,6 +235,14 @@ function AppointmentsListPage(): React.ReactElement {
                     onClick={() => handleEditAppointment(appointment)}
                   >
                     Edit
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mr-2"
+                    onClick={() => handleDeleteAppointment(appointment)}
+                  >
+                    Delete
                   </Button>
                   {appointment.status === 'Scheduled' && (
                     <>
@@ -246,6 +293,26 @@ function AppointmentsListPage(): React.ReactElement {
             </Button>
             <Button variant="destructive" onClick={handleConfirmCancel}>
               Confirm Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete the appointment for{' '}
+              {appointmentToDelete?.customerName}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteConfirmOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={confirmDeleteAppointment}>
+              Delete
             </Button>
           </DialogFooter>
         </DialogContent>

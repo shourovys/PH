@@ -126,8 +126,13 @@ export function AppointmentFormDialog({
     setIsLoading(true);
     try {
       if (isEdit && appointment) {
+        const appointmentId = appointment.id || appointment._id;
+        if (!appointmentId) {
+          toast.error('Appointment ID not found');
+          return;
+        }
         await appointmentsService.updateAppointment(
-          appointment.id,
+          appointmentId,
           formData as UpdateAppointmentRequest
         );
         toast.success('Appointment updated successfully');

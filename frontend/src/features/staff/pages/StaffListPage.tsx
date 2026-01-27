@@ -1,6 +1,15 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -12,12 +21,15 @@ import {
 
 import { StaffFormDialog } from '../components/StaffFormDialog';
 import { useStaff } from '../hooks/use-staff';
+import { staffService } from '../services/staff.service';
 import type { Staff } from '../staff.types';
 
 function StaffListPage(): React.ReactElement {
   const { staff, isLoading, mutate } = useStaff();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingStaff, setEditingStaff] = useState<Staff | undefined>();
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [staffToDelete, setStaffToDelete] = useState<Staff | undefined>();
 
   const handleAddStaff = (): void => {
     setEditingStaff(undefined);
@@ -31,6 +43,26 @@ function StaffListPage(): React.ReactElement {
 
   const handleDialogSuccess = (): void => {
     mutate();
+  };
+
+  const handleDeleteStaff = (staffMember: Staff): void => {
+    setStaffToDelete(staffMember);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDeleteStaff = async (): Promise<void> => {
+    if (!staffToDelete) return;
+
+    try {
+      await staffService.deleteStaff(staffToDelete._id);
+      toast.success('Staff member deleted successfully');
+      mutate();
+      setDeleteConfirmOpen(false);
+      setStaffToDelete(undefined);
+    } catch (error) {
+      console.error('Failed to delete staff member:', error);
+      toast.error('Failed to delete staff member');
+    }
   };
 
   if (isLoading) {
@@ -78,7 +110,7 @@ function StaffListPage(): React.ReactElement {
                   >
                     Edit
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => handleDeleteStaff(member)}>
                     Delete
                   </Button>
                 </TableCell>
@@ -94,6 +126,25 @@ function StaffListPage(): React.ReactElement {
         staff={editingStaff}
         onSuccess={handleDialogSuccess}
       />
+
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete {staffToDelete?.name}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteConfirmOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={confirmDeleteStaff}>
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

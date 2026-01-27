@@ -60,7 +60,12 @@ export function QueueAssignDialog({
 
     setIsSubmitting(true);
     try {
-      await appointmentsService.updateAppointment(appointment.id, {
+      const appointmentId = appointment.id || appointment._id;
+      if (!appointmentId) {
+        toast.error('Appointment ID not found');
+        return;
+      }
+      await appointmentsService.updateAppointment(appointmentId, {
         staffId: selectedStaffId,
         status: 'Scheduled',
       });

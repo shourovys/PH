@@ -1,6 +1,15 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -12,12 +21,15 @@ import {
 
 import { ServiceFormDialog } from '../components/ServiceFormDialog';
 import { useServicesDefinition } from '../hooks/use-services-definition';
+import { servicesDefinitionService } from '../services/services-definition.service';
 import type { ServiceDefinition } from '../services-definition.types';
 
 function ServicesDefinitionListPage(): React.ReactElement {
   const { services, isLoading, mutate } = useServicesDefinition();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingService, setEditingService] = useState<ServiceDefinition | undefined>();
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [serviceToDelete, setServiceToDelete] = useState<ServiceDefinition | undefined>();
 
   const handleAddService = (): void => {
     setEditingService(undefined);
@@ -31,6 +43,26 @@ function ServicesDefinitionListPage(): React.ReactElement {
 
   const handleDialogSuccess = (): void => {
     mutate();
+  };
+
+  const handleDeleteService = (service: ServiceDefinition): void => {
+    setServiceToDelete(service);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDeleteService = async (): Promise<void> => {
+    if (!serviceToDelete) return;
+
+    try {
+      await servicesDefinitionService.deleteService(serviceToDelete._id);
+      toast.success('Service deleted successfully');
+      mutate();
+      setDeleteConfirmOpen(false);
+      setServiceToDelete(undefined);
+    } catch (error) {
+      console.error('Failed to delete service:', error);
+      toast.error('Failed to delete service');
+    }
   };
 
   if (isLoading) {
@@ -74,7 +106,7 @@ function ServicesDefinitionListPage(): React.ReactElement {
                   >
                     Edit
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => handleDeleteService(service)}>
                     Delete
                   </Button>
                 </TableCell>
@@ -90,6 +122,25 @@ function ServicesDefinitionListPage(): React.ReactElement {
         service={editingService}
         onSuccess={handleDialogSuccess}
       />
+
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete {serviceToDelete?.name}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteConfirmOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={confirmDeleteService}>
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

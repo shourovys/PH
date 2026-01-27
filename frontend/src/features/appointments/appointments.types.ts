@@ -1,5 +1,6 @@
 export interface Appointment {
-  id: string;
+  id?: string;
+  _id?: string;
   customerName: string;
   serviceId: string;
   staffId: string | null;
