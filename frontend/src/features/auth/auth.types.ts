@@ -2,7 +2,8 @@
  * User interface for authentication
  */
 export interface User {
-  id: string;
+  id?: string;
+  _id?: string;
   email: string;
   name: string;
   role: 'admin' | 'user';

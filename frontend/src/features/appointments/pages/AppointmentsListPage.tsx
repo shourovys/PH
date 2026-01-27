@@ -119,7 +119,7 @@ function AppointmentsListPage(): React.ReactElement {
         toast.error('Appointment ID not found');
         return;
       }
-      await appointmentsService.deleteAppointment(appointmentId, user.id);
+      await appointmentsService.deleteAppointment(appointmentId);
       toast.success('Appointment deleted successfully');
       mutate();
       setDeleteConfirmOpen(false);

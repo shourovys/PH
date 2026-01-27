@@ -70,7 +70,8 @@ export class AppointmentsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Query('userId') userId: string) {
+  remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
+    const userId = req.user._id.toString();
     return this.appointmentsService.remove(id, userId);
   }
 
@@ -78,8 +79,9 @@ export class AppointmentsController {
   updateStatus(
     @Param('id') id: string,
     @Body('status') status: AppointmentStatus,
-    @Query('userId') userId: string,
+    @Request() req: AuthenticatedRequest,
   ) {
+    const userId = req.user._id.toString();
     return this.appointmentsService.updateStatus(id, status, userId);
   }
 }

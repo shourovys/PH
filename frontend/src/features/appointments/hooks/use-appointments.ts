@@ -18,11 +18,12 @@ export function useAppointments(filters?: { date?: string; staffId?: string; sta
   ) => Promise<Appointment[] | undefined>;
 } {
   const user = useAuthStore(authSelectors.user);
-  const key = filters ? ['/appointments', { ...filters, userId: user?.id }] : null;
+  const userId = user?.id || user?._id;
+  const key = filters ? ['/appointments', { ...filters, userId }] : null;
 
   const { data, error, isLoading, mutate } = useSWR<Appointment[]>(
     key,
-    () => appointmentsService.getAppointments({ ...filters, userId: user?.id }),
+    () => appointmentsService.getAppointments({ ...filters, userId }),
     {
       revalidateOnFocus: false,
     }
@@ -49,10 +50,11 @@ export function useQueue(): {
   ) => Promise<Appointment[] | undefined>;
 } {
   const user = useAuthStore(authSelectors.user);
+  const userId = user?.id || user?._id;
 
   const { data, error, isLoading, mutate } = useSWR<Appointment[]>(
-    ['/appointments/queue', { userId: user?.id }],
-    () => appointmentsService.getQueue(user?.id || ''),
+    ['/appointments/queue', { userId }],
+    () => appointmentsService.getQueue(userId || ''),
     {
       revalidateOnFocus: false,
     }

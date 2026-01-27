@@ -50,8 +50,8 @@ export const appointmentsService = {
   /**
    * Delete an appointment
    */
-  deleteAppointment: async (id: string, userId: string): Promise<void> => {
-    await apiClient.delete(`/appointments/${id}?userId=${userId}`);
+  deleteAppointment: async (id: string): Promise<void> => {
+    await apiClient.delete(`/appointments/${id}`);
   },
 
   /**

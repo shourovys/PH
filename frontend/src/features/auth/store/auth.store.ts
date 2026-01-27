@@ -7,7 +7,8 @@ import type { BaseStore } from '@/types/store.types';
  * User interface representing an authenticated user
  */
 export interface User {
-  id: string;
+  id?: string;
+  _id?: string;
   email: string;
   name: string;
   role: 'admin' | 'user';
