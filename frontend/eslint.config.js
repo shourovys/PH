@@ -88,7 +88,7 @@ export default defineConfig([
           allowDirectConstAssertionInArrowFunctions: true,
         },
       ],
-      'react-refresh/only-export-components': 'warn',
+      'react-refresh/only-export-components': 'off',
 
       // Prettier
       'prettier/prettier': 'error',
@@ -98,6 +98,12 @@ export default defineConfig([
     files: ['**/*.{test,spec}.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  {
+    files: ['**/*.tsx'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
 ]);
