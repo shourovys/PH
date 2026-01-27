@@ -57,23 +57,23 @@ The verification revealed critical infrastructure issues preventing the applicat
 
 ### Story 2.2: Fix Linting Errors
 
-- [ ] Remove unused variables in e2e test
+- [x] Remove unused variables in e2e test
   - In backend/test/app.e2e-spec.ts, remove or use userId and appointmentId variables
   - userId is assigned but not used in all tests; appointmentId similar
-- [ ] Remove unnecessary eslint-disable directives
+- [x] Remove unnecessary eslint-disable directives
   - In services-definition.controller.ts, staff.controller.ts, dashboard.controller.ts
   - Check if @typescript-eslint/no-unsafe-\* rules are still needed
   - Remove unused disable comments
-- [ ] Run lint check
+- [x] Run lint check
   - Execute `cd backend && npm run lint`
   - Verify no errors or warnings
 
 ### Story 2.3: Fix E2E Test Configuration
 
-- [ ] Update jest-e2e.json for ES modules
+- [x] Update jest-e2e.json for ES modules
   - Add "extensionsToTreatAsEsm": [".ts"]
   - Add "globals": { "ts-jest": { "useESM": true } }
-- [ ] Test E2E execution
+- [x] Test E2E execution
   - Run `cd backend && npm run test:e2e`
   - Verify tests run without ES module parsing errors
 

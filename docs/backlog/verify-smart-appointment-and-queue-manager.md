@@ -49,7 +49,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 - [ ] Manual Smoke Tests
       Steps: Start backend (`cd backend && npm run start:dev`), start frontend (`cd frontend && npm run dev`), perform flows: Register → Create Staff → Create Service → Book Appointment → Complete; Book at capacity → Queue → Assign
       Expected: All flows work without errors
-      Result: 2026-01-27 13:31:00 Failed - Backend server not responding on port 3000 (connection failed), frontend running on http://localhost:5173 but backend unavailable.
+      Result: 2026-01-27 13:31:00 Failed - Backend server not responding on port 3001 (connection failed), frontend running on http://localhost:5173 but backend unavailable.
 
 - [ ] API Contracts Verification
       Command: Visit `http://localhost:3001/api/docs`, test sample requests
@@ -70,24 +70,24 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 - [ ] Verify MongoDB connection
       Command: `cd backend && npm run start:dev`
       Expected: MongoDB connection log appears in console
-      Result: 2026-01-27 13:31:00 Failed - Backend server not responding on port 3000: Could not connect to server
+      Result: 2026-01-27 13:31:00 Failed - Backend server not responding on port 3001: Could not connect to server
 
 #### Story 1.2: Implement Auth Module (Backend)
 
 - [ ] Verify POST /auth/register
       Command: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'`
       Expected: 201 response with JWT token
-      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
+      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3001: Could not connect to server
 
 - [ ] Verify POST /auth/login
       Command: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'`
       Expected: 200 response with JWT token
-      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
+      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3001: Could not connect to server
 
 - [ ] Verify GET /auth/me
       Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/auth/me`
       Expected: 200 response with user object
-      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3000: Could not connect to server
+      Result: 2026-01-27 13:31:00 Failed - Failed to connect to localhost port 3001: Could not connect to server
 
 #### Story 1.3: Implement Staff CRUD API (Backend)
 
@@ -333,7 +333,7 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 - Verify MongoDB connection
   - Command: `cd backend && npm run start:dev`
-  - Error: Backend server not responding on port 3000: Could not connect to server
+  - Error: Backend server not responding on port 3001: Could not connect to server
 
 **Recommended Fix:** Install and start MongoDB service. Ensure MONGODB_URI in backend/.env is correct. Run `mongod` to start MongoDB.
 
@@ -355,9 +355,9 @@ All sprint backlog items are marked as completed. Verification focuses on confir
 
 **Failed Tasks:**
 
-- Verify POST /auth/register - Command: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'` - Error: Failed to connect to localhost port 3000
-- Verify POST /auth/login - Command: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'` - Error: Failed to connect to localhost port 3000
-- Verify GET /auth/me - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/auth/me` - Error: Failed to connect to localhost port 3000
+- Verify POST /auth/register - Command: `curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"pass123","name":"Test User"}'` - Error: Failed to connect to localhost port 3001
+- Verify POST /auth/login - Command: `curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"demo@example.com","password":"demo123"}'` - Error: Failed to connect to localhost port 3001
+- Verify GET /auth/me - Command: `curl -H "Authorization: Bearer <JWT_TOKEN>" http://localhost:3001/api/auth/me` - Error: Failed to connect to localhost port 3001
 
 **Recommended Fix:** Fix MongoDB connection first (see Story 1.1). Ensure JWT_SECRET in .env.
 
