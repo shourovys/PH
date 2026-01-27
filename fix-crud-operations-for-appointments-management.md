@@ -42,11 +42,11 @@
 
 ### Frontend Refactor: Remove Redundant UserId Queries
 
-- [ ] Remove `userId` from query params in `getAppointments`
-- [ ] Remove `userId` from query params in `getQueue`
-- [ ] Remove `userId` from query params in `assignFromQueue`
-- [ ] Update `use-appointments` hook to not pass `userId` in filters
-- [ ] Test that appointments still load correctly with auth
+- [x] Remove `userId` from query params in `getAppointments`
+- [x] Remove `userId` from query params in `getQueue`
+- [x] Remove `userId` from query params in `assignFromQueue`
+- [x] Update `use-appointments` hook to not pass `userId` in filters
+- [x] Test that appointments still load correctly with auth
 
 ### Code Quality: Fix Linting Issues
 

@@ -1,7 +1,5 @@
 import useSWR from 'swr';
 
-import { authSelectors, useAuthStore } from '@/features/auth';
-
 import type { Appointment } from '../appointments.types';
 import { appointmentsService } from '../services/appointments.service';
 
@@ -17,13 +15,11 @@ export function useAppointments(filters?: { date?: string; staffId?: string; sta
     shouldRevalidate?: boolean | undefined
   ) => Promise<Appointment[] | undefined>;
 } {
-  const user = useAuthStore(authSelectors.user);
-  const userId = user?.id || user?._id;
-  const key = filters ? ['/appointments', { ...filters, userId }] : null;
+  const key = filters ? ['/appointments', filters] : null;
 
   const { data, error, isLoading, mutate } = useSWR<Appointment[]>(
     key,
-    () => appointmentsService.getAppointments({ ...filters, userId }),
+    () => appointmentsService.getAppointments(filters),
     {
       revalidateOnFocus: false,
     }
@@ -49,12 +45,9 @@ export function useQueue(): {
     shouldRevalidate?: boolean | undefined
   ) => Promise<Appointment[] | undefined>;
 } {
-  const user = useAuthStore(authSelectors.user);
-  const userId = user?.id || user?._id;
-
   const { data, error, isLoading, mutate } = useSWR<Appointment[]>(
-    ['/appointments/queue', { userId }],
-    () => appointmentsService.getQueue(userId || ''),
+    '/appointments/queue',
+    () => appointmentsService.getQueue(),
     {
       revalidateOnFocus: false,
     }
