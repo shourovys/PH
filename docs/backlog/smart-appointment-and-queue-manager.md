@@ -414,11 +414,11 @@
 
 **Goal**: Status transitions.
 
-- [ ] Add status change buttons/menu on appointment row:
+- [x] Add status change buttons/menu on appointment row:
   - Scheduled → Completed, No-Show, Cancelled
   - Waiting → (only via queue assignment)
-- [ ] Confirm before cancellation
-- [ ] **Verify**: Status changes correctly, activity logged
+- [x] Confirm before cancellation
+- [x] **Verify**: Status changes correctly, activity logged
 
 ---
 
@@ -430,15 +430,15 @@
 
 **Goal**: View and manage waiting queue.
 
-- [ ] Create `src/features/queue/pages/QueuePage.tsx`:
+- [x] Create `src/features/queue/pages/QueuePage.tsx`:
   - Display queue in priority order
   - Columns: Position (#1, #2...), Customer, Service, Requested Time
   - "Assign" button per row → opens staff selector
-- [ ] Create `QueueAssignDialog.tsx`:
+- [x] Create `QueueAssignDialog.tsx`:
   - Select available staff (filter by service type + has capacity)
   - Confirm → API call → refresh → toast
-- [ ] Show empty state: "No appointments in queue"
-- [ ] **Verify**: Queue shows correct order, assign works
+- [x] Show empty state: "No appointments in queue"
+- [x] **Verify**: Queue shows correct order, assign works
 
 ---
 

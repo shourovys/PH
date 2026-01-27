@@ -3,6 +3,7 @@ import { APPOINTMENTS_ROUTES } from '@/features/appointments';
 import { AUTH_ROUTES } from '@/features/auth';
 import { DASHBOARD_LINKS, DASHBOARD_ROUTES } from '@/features/dashboard';
 import { DEMO_ROUTES } from '@/features/demo';
+import { QUEUE_ROUTES } from '@/features/queue';
 import { SERVICES_DEFINITION_ROUTES } from '@/features/services-definition';
 import { STAFF_ROUTES } from '@/features/staff';
 import type { RouteConfig } from '@/types/route.types';
@@ -23,6 +24,7 @@ export const routes: RouteConfig[] = [
       ...STAFF_ROUTES,
       ...SERVICES_DEFINITION_ROUTES,
       ...APPOINTMENTS_ROUTES,
+      ...QUEUE_ROUTES,
     ],
   },
 ];

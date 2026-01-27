@@ -20,7 +20,9 @@ export interface CreateAppointmentRequest {
   appointmentTime: string;
 }
 
-export type UpdateAppointmentRequest = Partial<CreateAppointmentRequest>;
+export type UpdateAppointmentRequest = Partial<
+  CreateAppointmentRequest & { status: Appointment['status'] }
+>;
 
 export interface AppointmentWithDetails extends Appointment {
   service?: {
