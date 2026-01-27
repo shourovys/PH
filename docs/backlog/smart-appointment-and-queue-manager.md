@@ -538,9 +538,9 @@
 
 **Goal**: Document all endpoints.
 
-- [ ] Add Swagger/OpenAPI via `@nestjs/swagger`
-- [ ] Document all endpoints with examples
-- [ ] **Verify**: `/api/docs` shows swagger UI
+- [x] Add Swagger/OpenAPI via `@nestjs/swagger`
+- [x] Document all endpoints with examples
+- [x] **Verify**: `/api/docs` shows swagger UI
 
 ---
 
@@ -548,12 +548,12 @@
 
 **Goal**: Project setup instructions.
 
-- [ ] Update `frontend/README.md` with setup steps
-- [ ] Update `backend/README.md` with:
+- [x] Update `frontend/README.md` with setup steps
+- [x] Update `backend/README.md` with:
   - Environment variables
   - MongoDB setup
   - Demo user credentials
-- [ ] **Verify**: New developer can setup project from README
+- [x] **Verify**: New developer can setup project from README
 
 ---
 
