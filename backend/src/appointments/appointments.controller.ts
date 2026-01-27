@@ -14,7 +14,7 @@ import {
 import { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { UserDocument } from '../users/user.schema.js';
-import { Appointment, AppointmentStatus } from './appointment.schema.js';
+import { Appointment, AppointmentDocument, AppointmentStatus } from './appointment.schema.js';
 import { AppointmentsService } from './appointments.service.js';
 import type { CreateAppointmentDto } from './dto/create-appointment.dto.js';
 import type { UpdateAppointmentDto } from './dto/update-appointment.dto.js';
@@ -38,34 +38,45 @@ export class AppointmentsController {
   }
 
   @Get()
-  findAll(
-    @Query('userId') userId: string,
+  async findAll(
+    @Request() req: AuthenticatedRequest,
     @Query() filters: { date?: string; staffId?: string; status?: string },
-  ) {
+  ): Promise<Appointment[]> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.findAll(userId, filters);
   }
 
   @Get('queue')
-  getQueue(@Query('userId') userId: string) {
+  async getQueue(@Request() req: AuthenticatedRequest): Promise<AppointmentDocument[]> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.getQueue(userId);
   }
 
   @Post('queue/assign/:staffId')
-  assignFromQueue(@Param('staffId') staffId: string, @Query('userId') userId: string) {
+  async assignFromQueue(
+    @Param('staffId') staffId: string,
+    @Request() req: AuthenticatedRequest,
+  ): Promise<Appointment | null> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.assignFromQueue(staffId, userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Query('userId') userId: string) {
+  async findOne(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ): Promise<Appointment> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.findOne(id, userId);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateAppointmentDto: UpdateAppointmentDto,
-    @Query('userId') userId: string,
-  ) {
+    @Request() req: AuthenticatedRequest,
+  ): Promise<Appointment> {
+    const userId = req.user._id.toString();
     return this.appointmentsService.update(id, updateAppointmentDto, userId);
   }
 
