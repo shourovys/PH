@@ -2,6 +2,7 @@ export default {
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
   rootDir: 'src',
+  moduleResolution: 'bundler',
   transform: {
     '^.+\\.(t|j)s$': ['ts-jest', { useESM: true }],
   },
