@@ -28,6 +28,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { authSelectors, useAuthStore } from '@/features/auth';
+import { useStaff } from '@/features/staff/hooks/use-staff';
 
 import type { Appointment } from '../appointments.types';
 import { AppointmentFormDialog } from '../components/AppointmentFormDialog';
@@ -51,6 +52,8 @@ function AppointmentsListPage(): React.ReactElement {
     staffId: staffFilter === 'all' ? undefined : staffFilter || undefined,
     status: statusFilter === 'all' ? undefined : statusFilter || undefined,
   });
+
+  const { staff } = useStaff();
 
   const handleNewAppointment = (): void => {
     setEditingAppointment(undefined);
@@ -160,7 +163,11 @@ function AppointmentsListPage(): React.ReactElement {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All staff</SelectItem>
-              {/* TODO: Load staff options */}
+              {staff.map((s) => (
+                <SelectItem key={s._id} value={s._id}>
+                  {s.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -206,8 +213,12 @@ function AppointmentsListPage(): React.ReactElement {
             {appointments.map((appointment) => (
               <TableRow key={appointment.id || appointment._id}>
                 <TableCell>{appointment.customerName}</TableCell>
-                <TableCell>{/* TODO: Service name */}</TableCell>
-                <TableCell>{/* TODO: Staff name */}</TableCell>
+                <TableCell>
+                  {(appointment.serviceId as unknown as { name: string })?.name || 'N/A'}
+                </TableCell>
+                <TableCell>
+                  {(appointment.staffId as unknown as { name: string })?.name || 'N/A'}
+                </TableCell>
                 <TableCell>{appointment.appointmentDate}</TableCell>
                 <TableCell>{appointment.appointmentTime}</TableCell>
                 <TableCell>

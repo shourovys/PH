@@ -94,7 +94,10 @@ export function AppointmentFormDialog({
 
   const selectedService = services.find((s) => s._id === formData.serviceId);
   const availableStaff = staff.filter(
-    (s) => !selectedService || s.serviceType === selectedService.requiredStaffType
+    (s) =>
+      !selectedService ||
+      s.serviceType === selectedService.requiredStaffType ||
+      (isEdit && appointment?.staffId === s._id)
   );
 
   const dateFilters = formData.appointmentDate ? { date: formData.appointmentDate } : undefined;

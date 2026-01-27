@@ -63,32 +63,32 @@
 
 ### Error Management: Enhance Error Handling
 
-- [ ] Improve error messages in backend for better user feedback
-- [ ] Update frontend to handle specific error codes (e.g., 400 for past appointments)
-- [ ] Add user-friendly error displays in UI
+- [x] Improve error messages in backend for better user feedback
+- [x] Update frontend to handle specific error codes (e.g., 400 for past appointments)
+- [x] Add user-friendly error displays in UI
 
 ### Testing: Add Comprehensive Tests
 
-- [ ] Write unit tests for past appointment validation
-- [ ] Write unit tests for user auth consistency
-- [ ] Write e2e tests for CRUD operations
-- [ ] Test edge cases like updating status, deleting appointments
-- [ ] Ensure all tests pass
+- [x] Write unit tests for past appointment validation
+- [x] Write unit tests for user auth consistency
+- [x] Write e2e tests for CRUD operations
+- [x] Test edge cases like updating status, deleting appointments
+- [x] Ensure all tests pass
 
 ### UI Enhancement: Populate Staff Filter Dropdown and Fix Edit Prefill
 
-- [ ] Implement staff loading in `AppointmentsListPage.tsx` using existing `useStaff` hook
-- [ ] Add staff options to the staff filter Select component
-- [ ] Ensure staff list is filtered by user if needed
-- [ ] Test that staff filter dropdown shows all available staff
-- [ ] Verify filtering appointments by staff works correctly
-- [ ] Fix edit form prefill: ensure current staff is included in dropdown options even if not matching service type
-- [ ] Update `AppointmentFormDialog.tsx` to handle cases where assigned staff doesn't match service requirements
-- [ ] Test editing appointments with mismatched staff/service works correctly
+- [x] Implement staff loading in `AppointmentsListPage.tsx` using existing `useStaff` hook
+- [x] Add staff options to the staff filter Select component
+- [x] Ensure staff list is filtered by user if needed
+- [x] Test that staff filter dropdown shows all available staff
+- [x] Verify filtering appointments by staff works correctly
+- [x] Fix edit form prefill: ensure current staff is included in dropdown options even if not matching service type
+- [x] Update `AppointmentFormDialog.tsx` to handle cases where assigned staff doesn't match service requirements
+- [x] Test editing appointments with mismatched staff/service works correctly
 
 ### Documentation: Update API Docs
 
-- [ ] Update any API documentation to reflect changes
-- [ ] Document the past appointment validation rule
+- [x] Update any API documentation to reflect changes
+- [x] Document the past appointment validation rule
 
 This backlog ensures secure, consistent, and robust CRUD operations for appointments management.
