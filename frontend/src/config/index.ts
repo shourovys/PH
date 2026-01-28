@@ -2,7 +2,7 @@ import { env } from './env';
 
 export const config = {
   api: {
-    baseURL: env.VITE_API_BASE_URL,
+    baseURL: 'https://appointment-manager-backend.netlify.app/api',
     timeout: env.VITE_API_TIMEOUT,
   },
   features: {

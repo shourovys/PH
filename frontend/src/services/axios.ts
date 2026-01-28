@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 import type { ApiError, ApiResponse } from '@/types/api.types';
 
 export const axiosInstance = axios.create({
-  baseURL: config.api.baseURL,
+  baseURL: 'https://appointment-manager-backend.netlify.app/api',
   timeout: config.api.timeout,
   headers: {
     'Content-Type': 'application/json',
